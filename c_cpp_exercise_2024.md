@@ -180,9 +180,11 @@ AtCoderでは、提出した回数は得点に影響しません。最終的に`
 
 <div style="page-break-after: always"></div>
 
+<br>
+
 <div style="page-break-after: always"></div>
 
-AtCoderに登録したら、以下の欄に氏名とユーザーIDを書いて提出してください。
+AtCoderに登録したら、以下の欄に氏名とユーザーIDを書いて、このページを提出してください。
 
 氏名: _______________________________________
 
