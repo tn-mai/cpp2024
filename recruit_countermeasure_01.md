@@ -75,13 +75,15 @@ Gitを使うには専用のツールが必要です。Visual StudioにはGit用�
 まずはプロジェクト用のリポジトリを作成します。`Git`メニューにある「Gitリポジトリの作成」をクリックしてください。
 
 <p align="center">
-<img src="images/lp01/lp01_vs_git_0.jpg" width="50%" />
+<img src="images/lp01/lp01_vs_git_0.jpg" width="60%" />
 </p>
+
+<div style="page-break-after: always"></div>
 
 すると、リポジトリ作成ウィンドウが開きます。
 
 <p align="center">
-<img src="images/lp01/lp01_vs_git_1.jpg" width="90%" />
+<img src="images/lp01/lp01_vs_git_1.jpg" width="80%" />
 </p>
 
 今はローカルリポジトリのみ作成することにします。リモートリポジトリの追加には下準備が必要なので、あとで行います。以下の手順で、ローカルリポジトリを作成してください。
@@ -144,7 +146,7 @@ Gitを使うには専用のツールが必要です。Visual StudioにはGit用�
 変更した内容をリポジトリに記録しましょう。上部の「表示」メニューから「Git変更」を選択してください。すると、「Git変更ウィンドウ」が表示されます。
 
 <p align="center">
-<img src="images/lp01/lp01_vs_git_2.jpg" width="50%" />
+<img src="images/lp01/lp01_vs_git_2.jpg" width="45%" />
 </p>
 
 ウィンドウの中央あたりに「変更(1)」という項目があります。ここには、変更されたファイルの一覧が表示されます。項目の右側の数字は「変更されたファイルの数」です。
@@ -258,6 +260,7 @@ WebブラウザでGitHubのマイページを開き、リモートリポジト�
 +#include <random>
  using namespace std;
 
+ // 問題文と答えをまとめる構造体
  struct Question
  {
    string q; // 問題文
@@ -305,9 +308,9 @@ WebブラウザでGitHubのマイページを開き、リモートリポジト�
 
 このプログラムでは以下のクラスと関数を使用しています。詳しい使い方は、標準ライブラリ解説サイト(`cpprefjp`など)を参照してください。
 
->* `random_device`: 真の乱数を生成するクラス。処理が遅いので、擬似乱数の初期化にだけ使われることが多い。
->* `mt19937`: 高品質な疑似乱数を生成するクラス。
->* `unniform_int_distribution`: 乱数の値を、コンストラクタで指定した範囲に変換するクラス。
+>* `random_device`: 「真の乱数」を生成するクラス。処理が遅いので、擬似乱数の初期化にだけ使われることが多い。
+>* `mt19937`: 高品質な「疑似乱数」を生成するクラス。
+>* `uniform_int_distribution`: 乱数の値を、コンストラクタで指定した範囲に変換するクラス。
 >* `to_string`: 数値を`string`型に変換する関数。桁の指定などはできない。
 
 プログラムが書けたらビルドして実行してください。実行するたびに問題が変化していたら成功です。
