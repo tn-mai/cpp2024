@@ -513,7 +513,7 @@ int gcd(int a, int b)
 <strong>【課題09】</strong>
 慣用句の<code>data</code>配列に以下の問題を追加しなさい。
 <table>
-<tr><th>慣用句</th><th>意味</th>
+<tr><th>慣用句</th><th>意味</th></tr>
 <tr><td>二階から目薬</td><td>回りくどくて効果がない</td></tr>
 <tr><td>意表をつく</td><td>予想外なことをして驚かせる</td></tr>
 <tr><td>禁じざるを得ない</td><td>禁止しなくてはならない</td></tr>
