@@ -217,19 +217,33 @@ int gcd(int a, int b)
 >2. 配列をランダムに入れ替える(シャッフルする)。
 >3. 配列の先頭から順番に番号を取り出し、番号に対応する問題を`questions`に追加する。
 
-この機能は関数にしておきましょう。「ランダムな番号の配列」を作るので、関数名は`CreateRandomIndices`(クリエイト・ランダム・インディシーズ)とします。
+まず「ランダムな番号の配列を作る機能」を持つ関数を定義しましょう。「ランダムな番号の配列」を作るので、関数名は`CreateRandomIndices`(クリエイト・ランダム・インディシーズ)とします。
 
-まずは`1`の部分を作成しましょう。`exam_japansese.cpp`を開き、インクルード文の下に次のプログラムを追加してください。
+別の教科の問題を作成するときも使えるように、ファイルを分けましょう。ソリューションエクスプローラーの「ソースファイル」フィルタを右クリックし、「追加→新しい項目」を選んでください。
+
+そして、`utility.h`(ユーティリティ・エイチ)という名前のヘッダファイルを追加してください。追加した`utility.h`を開き、次のプログラムを追加してください。
 
 ```diff
- #include "exam_japanese.h"
-+#include <random>
- using namespace std;
++#pragma once
++#include <vector>
++
++// ランダムな番号配列を作成する
++std::vector<int> CreateRandomIndices(int n);
+```
 
+次に関数を定義します。ソリューションエクスプローラーの「ソースファイル」フィルタを右クリックし、「追加→新しい項目」を選んでください。そして、`utility.cpp`という名前のCPPファイルを追加してください。
+
+それでは、`1`の部分から作成しましょう。追加した`utility.cpp`を開き、次のプログラムを追加してください。
+
+```diff
++#include "utility.h"
++#include <random>
++using namespace std;
++
 +/*
-+* シャッフルした番号配列を作成する
++* ランダムな番号配列を作成する
 +*/
-+std::vector<int> CreateRandomIndices(int n)
++vector<int> CreateRandomIndices(int n)
 +{
 +  // 番号を配列に格納
 +  vector<int> indices(n);
@@ -239,14 +253,9 @@ int gcd(int a, int b)
 +
 +  return indices;
 +}
-
- /*
- * 漢字の読み取り問題を作成する
- */
- QuestionList CreateKanjiExam()
 ```
 
->`indices`は`index`の複数形で、「インディシーズ」と読みます。なお、`index`の複数形には`indexes`(インデクセス)もあります。`indices`のほうが古くから使われており一般的です。とはいえ、`indexes`も間違いではありません。
+>`indices`(インディシーズ)は`index`の複数形です。なお、`index`の複数形には`indexes`(インデクセス)もあります。`indices`のほうが古くから使われており一般的ですが、`indexes`も間違いではありません。
 
 続いて、`2`の「配列をランダムに入れ替える(シャッフルする)」プログラムを追加します。「配列のシャッフル」は以下の手順(アルゴリズム)で実現できます。
 
@@ -256,9 +265,9 @@ int gcd(int a, int b)
 >4. `i`を1減らす。
 >5. `i`が0になったら終了。1以上なら「手順2」に戻る。
 
-このアルゴリズムは、考案者の名前から「フィッシャー・イェーツのシャッフル」と呼ばれています(なお、上記のアルゴリズムは「コンピューター用に改良されたバージョン」です)。
+このアルゴリズムは、考案者の名前から「フィッシャー・イェーツのシャッフル」と呼ばれています(上記のアルゴリズムは、実際には「コンピューター用に改良されたバージョン」です)。
 
-それでは、「フィッシャー・イェーツ・シャッフル」を作成しましょう。問題の番号を配列に格納するプログラムの下に、次のプログラムを追加してください。
+それでは、「フィッシャー・イェーツのシャッフル」を作成しましょう。問題の番号を配列に格納するプログラムの下に、次のプログラムを追加してください。
 
 ```diff
    // 番号を配列に格納
@@ -281,7 +290,20 @@ int gcd(int a, int b)
  }
 ```
 
-これで「シャッフルされた番号の配列」を作れるようになりました。残る作業は、この配列を使って問題を作成するだけです。`questions`配列に問題を追加するプログラムを、次のように変更してください。
+これで「シャッフルされた番号の配列」を作れるようになりました。残る作業は、この配列を使って問題を作成するだけです。`exam_japanese.cpp`を開き、`utility.h`をインクルードしてください。
+
+```diff
+ #include "exam_japanese.h"
++#include "utility.h"
+ #include <random>
+ using namespace std;
+
+ /*
+ * 漢字の読み取り問題を作成する
+ */
+```
+
+次に、`CreateKanjiExam`関数の定義にある、`questions`配列に問題を追加するプログラムを、次のように変更してください。
 
 ```diff
    constexpr int quizCount = 5;
@@ -302,7 +324,7 @@ int gcd(int a, int b)
 
 <pre class="tnmai_assignment">
 <strong>【課題03】</strong>
-<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+<code>utility.h</code>、<code>utility.cpp</code>、<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 <pre class="tnmai_assignment">
@@ -382,7 +404,7 @@ int gcd(int a, int b)
 +
 +    string s = "「" + string(e.idiom) + "」の意味として正しい番号を選べ\n";
 +    s += string("  1:") + e.meaning + "\n";
-+    s += string("  2:") + f.meaning + "\n";
++    s += string("  2:") + f.meaning;
 +
 +    questions.push_back({ s, "1" });
 +  }
@@ -434,10 +456,10 @@ int gcd(int a, int b)
 +    const int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
 +    if (correctNo == 1) {
        s += std::string("  1:") + e.meaning + "\n";
-       s += std::string("  2:") + f.meaning + "\n";
+       s += std::string("  2:") + f.meaning;
 +    } else {
 +      s += std::string("  1:") + f.meaning + "\n";
-+      s += std::string("  2:") + e.meaning + "\n";
++      s += std::string("  2:") + e.meaning;
 +    }
 
 -    questions.push_back({ s, "1" });
@@ -468,15 +490,17 @@ int gcd(int a, int b)
    random_device rd;
 
    for (int i = 0; i < quizCount; i++) {
-     const auto& e = data[indices[i]];
+     const auto& e = data[indices[i]]; // 慣用句と正しい意味
 +
 +    // 間違った意味をランダムに選ぶ
++    // i以上の値が選ばれた場合、1を足すことでi番目を除外する
++    // 1を足したときに値が範囲外にならないように、最大値を「要素数-2」としている
 +    int wrongIndex = std::uniform_int_distribution<>(0, size(data) - 2)(rd);
 +    if (wrongIndex >= i) {
 +      wrongIndex++;
 +    }
 -    const auto& f = data[indices[(i + 1) % size(data)]]; // 間違った意味
-+    const auto& f = data[indices[wrongIndex]];
++    const auto& f = data[indices[wrongIndex]]; // 間違った意味
 
      string s = "「" + string(e.idiom) + "」の意味として正しい番号を選べ\n";
      const int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
