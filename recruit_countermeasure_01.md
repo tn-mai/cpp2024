@@ -109,7 +109,7 @@ Gitを使うには専用のツールが必要です。Visual StudioにはGit用�
 +// 問題文と答えをまとめる構造体
 +struct Question
 +{
-+  string s; // 問題文
++  string q; // 問題文
 +  int a;    // 答え
 +};
 +
@@ -125,7 +125,7 @@ Gitを使うには専用のツールが必要です。Visual StudioにはGit用�
 -  cout << "13x(-5)の答えは？\n";
 
 +  for (const auto& e : questions) {
-+    cout << e.s << "の答えは？\n";
++    cout << e.q << "の答えは？\n";
      int answer;
      cin >> answer;
 -    if (answer == 13*-5) {
@@ -304,7 +304,7 @@ WebブラウザでGitHubのマイページを開き、リモートリポジト�
    cout << "[リクルート試験対策クイズ]\n";
 
    for (const auto& e : questions) {
-     cout << e.s << "の答えは？\n";
+     cout << e.q << "の答えは？\n";
 ```
 
 このプログラムでは以下のクラスと関数を使用しています。詳しい使い方は、標準ライブラリ解説サイト(`cpprefjp`など)を参照してください。
