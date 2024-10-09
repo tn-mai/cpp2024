@@ -354,7 +354,8 @@ WebブラウザでGitHubのマイページを開き、リモートリポジト�
    int w = uniform_int_distribution<>(1, 20)(rand);
    questions[2].q =
 -    to_string(x) + "-(" + to_string(y) + "+" + to_string(z) + ")÷" + to_string(w);
-+    to_string(x) + "-(" + to_string(y * w) + "+" + to_string(z * w) + ")÷" + to_string(w);
++    to_string(x) + "-(" + to_string(y * w) + "+" + to_string(z * w) + ")÷" +
++    to_string(w);
 -  questions[2].a = x - (y + z) / w;
 +  questions[2].a = x - (y + z);
 
