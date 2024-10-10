@@ -144,14 +144,15 @@ int gcd(int a, int b)
 +QuestionList CreateKanjiExam()
 +{
 +  static const struct {
-+    const char* kanji;
-+    const char* yomi;
++    const char* kanji;   // 漢字
++    const char* reading; // 読み
++    const char* meaning; // 意味
 +  } data[] = {
-+    { "市井", "しせい" },
-+    { "捺印", "なついん" },
-+    { "相殺", "そうさい" },
-+    { "凡例", "はんれい" },
-+    { "約定", "やくじょう" },
++    { "市井", "しせい", "人が多く集まって暮らすところ、町" },
++    { "捺印", "なついん", "(署名と共に)印鑑を押すこと" },
++    { "相殺", "そうさい", "足し引きの結果、差が無くなること" },
++    { "凡例", "はんれい", "本や図表のはじめに、使い方や約束事を箇条書きにしたもの" },
++    { "約定", "やくじょう", "約束して決めること、契約" },
 +  };
 +
 +  constexpr int quizCount = 5;
@@ -161,7 +162,7 @@ int gcd(int a, int b)
 +    const auto& e = data[i];
 +    questions.push_back({
 +      "「" + string(e.kanji) + "」の読みをひらがなで答えよ",
-+      e.yomi });
++      e.reading });
 +  }
 +  return questions;
 +}
@@ -295,7 +296,6 @@ int gcd(int a, int b)
 ```diff
  #include "exam_japanese.h"
 +#include "utility.h"
- #include <random>
  using namespace std;
 
  /*
@@ -316,7 +316,7 @@ int gcd(int a, int b)
 +    const auto& e = data[indices[i]];
      questions.push_back({
        "「" + string(e.kanji) + "」の読みをひらがなで答えよ",
-       e.yomi });
+       e.reading });
    }
 ```
 
@@ -327,30 +327,238 @@ int gcd(int a, int b)
 <code>utility.h</code>、<code>utility.cpp</code>、<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
+<div style="page-break-after: always"></div>
+
+## 2 意味から熟語を選ぶ
+
+### 2.1 間違った番号の配列を作る関数を定義する
+
+今度は、「意味を表示し、複数の熟語から同じ意味を持つものを選ぶ」問題を作成します。そのためには、「間違った答えの一覧」が必要です。そこで、「間違った答えの一覧を作成する関数」を定義しましょう。
+
+関数名は`CreateWrongIndices`(クリエイト・ロング・インディシーズ、「間違った番号配列を作成する」という意味)とします。`utility.h`を開き、関数の宣言を追加してください。
+
+```diff
+ #pragma once
+ #include <vector>
+
+ // シャッフルした番号配列を作成する
+ std::vector<int> CreateRandomIndices(int n);
++
++// 間違った番号の配列を作成する
++// n            作成する番号の範囲
++// correctIndex 正解の番号
++std::vector<int> CreateWrongIndices(int n, int correctIndex);
+```
+
+「間違った答えの一覧」は、言い換えると「すべての答えから正しい答えを除外したもの」です。そこで、「正しい答えのインデックスを除外した配列」を作成します。
+
+`utility.cpp`を開き、`CreateRandomIndices`関数の定義の下に、`CreateWrongIndices`関数の定義を追加してください。
+
+```diff
+     indices[i] = indices[n];
+     indices[n] = tmp;
+   }
+
+   return indices;
+ }
++
++/*
++* 間違った番号の配列を作成する
++*/
++vector<int> CreateWrongIndices(int n, int correctIndex)
++{
++  // 番号を配列に格納
++  vector<int> indices(n - 1);
++  for (int i = 0; i < correctIndex; i++) {
++    indices[i] = i;
++  }
++  for (int i = correctIndex; i < n - 1; i++) {
++    indices[i] = i + 1;
++  }
++
++  return indices;
++}
+```
+
+ところで、問題に間違った答えが混じっていても、いつも同じ順番で表示されていては、すぐに正しい答えを覚えてしまうでしょう。そのため、順番をランダムにする必要があります。
+
+ちょうど、`CreateRandomIndices`関数にはシャッフルを行う機能があります。`CreateWrongIndices`でも使えるように、シャッフル部分を関数に分けましょう。`utility.h`を開き、次のプログラムを追加してください。
+
+```diff
+ #pragma once
+ #include <vector>
++
++// 配列をシャッフルする
++void Shuffle(std::vector<int>& indices);
+
+ // シャッフルした番号配列を作成する
+ std::vector<int> CreateRandomIndices(int n);
+```
+
+再び`utility.cpp`を開き、`CreateRandomIndices`関数の定義を次のように変更してください。
+
+```diff
+ vector<int> CreateRandomIndices(int n)
+ {
+   // 番号を配列に格納
+   vector<int> indices(n);
+   for (int i = 0; i < n; i++) {
+     indices[i] = i;
+   }
+
+   // 番号の配列をシャッフル
++  Shuffle(indices);
+
++  return indices;
++}
++
++/*
++* 配列をシャッフルする
++*/
++void Shuffle(vector<int>& indices)
++{
++  const int n = static_cast<int>(indices.size());
++
+   random_device rd;
+   mt19937 rand(rd());
+   for (int i = n - 1; i > 0; i--) {
+     const int n = uniform_int_distribution<>(0, i)(rand);
+     const int tmp = indices[i];
+     indices[i] = indices[n];
+     indices[n] = tmp;
+   }
+-
+-  return indices;
+ }
+```
+
+これで、シャッフル機能を`Shuffle`(シャッフル)関数に分離できました。
+
+それでは、`CreateWrongIndices`関数にシャッフル機能を組み込みましょう。`CreateWrongIndices`関数の定義に、次のプログラムを追加してください。
+
+```diff
+ vector<int> CreateWrongIndices(int n, int correctIndex)
+ {
+   // 番号を配列に格納
+   vector<int> indices(n - 1);
+   for (int i = 0; i < correctIndex; i++) {
+     indices[i] = i;
+   }
+   for (int i = correctIndex; i < n - 1; i++) {
+     indices[i] = i + 1;
+   }
++
++  // 番号の配列をシャッフル
++  Shuffle(indices);
+
+   return indices;
+ }
+```
+
+### 2.2 意味から熟語を選ぶ問題を作成する
+
+それでは、「意味を表示し、複数の熟語から同じ意味を持つものを選ぶ」問題を作成しましょう。`exam_japanese.cpp`を開き、`random`ヘッダをインクルードしてください。
+
+```diff
+ #include "exam_japanese.h"
+ #include "utility.h"
++#include <random>
+ using namespace std;
+
+ /*
+ * 漢字の読み取り問題を作成する
+ */
+```
+
+次に、`CreateKanjiExam`関数の定義に、次のプログラムを追加してください。
+
+```diff
+   constexpr int quizCount = 5;
+   QuestionList questions;
+   questions.reserve(quizCount);
+   const vector<int> indices = CreateRandomIndices(size(data));
++  random_device rd;
+
++  // 問題の種類を選ぶ
++  int type = uniform_int_distribution<>(0, 1)(rd);
++  if (type == 0) {
++    // 漢字の読みを答える問題
+    for (int i = 0; i < quizCount; i++) {
+      const auto& e = data[indices[i]];
+      questions.push_back({
+        "「" + string(e.kanji) + "」の読みをひらがなで書くと？",
+        e.reading });
+    }
++  } else {
++    // 正しい熟語を答える問題
++    for (int i = 0; i < quizCount; i++) {
++      // 間違った番号をランダムに選ぶ
++      const int correctIndex = indices[i];
++      vector<int> answers = CreateRandomIndices(size(data), correctIndex);
++
++      // ランダムな位置を正しい番号で上書き
++      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      answers[correctNo - 1] = correctIndex;
++
++      // 問題文を作成
++      string s = "「" + string(data[correctIndex].meaning) + "」を意味する熟語の番号を選べ\n";
++      s += std::string("  1:") + data[answers[0]].kanji + "\n";
++      s += std::string("  2:") + data[answers[1]].kanji + "\n";
++      s += std::string("  3:") + data[answers[2]].kanji;
++
++      questions.push_back({ s, to_string(correctNo) });
++    }
++  } // if type
+
+  return questions;
+}
+```
+
+プログラムが書けたらビルドして、何回か実行してください。国語を選択したとき、意味から熟語を選ぶ問題が出題されたら成功です。
+
 <pre class="tnmai_assignment">
 <strong>【課題04】</strong>
-<code>data</code>配列に以下の問題を追加しなさい。
-<table>
-<tr><th>漢字(読み)</th><th>漢字(読み)</th></tr>
-<tr><td>必定(ひつじょう)</td><td>風情(ふぜい)</td></tr>
-<tr><td>知己(ちき)     </td><td>境内(けいだい)</td></tr>
-<tr><td>破綻(はたん)   </td><td>拘泥(こうでい)</td></tr>
-<tr><td>吟味(ぎんみ)   </td><td>承る(うけたまわる)</td></tr>
-<tr><td>寸暇(すんか)   </td><td>弄ぶ(もてあそぶ)</td></tr>
-<tr><td>灰汁(あく)     </td><td>潔い(いさぎよい)</td></tr>
-<tr><td>借款(しゃっかん)</td><td>培う(つちかう)</td></tr>
-<tr><td>老舗(しにせ)   </td><td>赴く(おもむく)</td></tr>
-<tr><td>疾病(しっぺい) </td><td>賄う(まかなう)</td></tr>
-<tr><td>界隈(かいわい) </td><td>背く(そむく)</td></tr>
-</table>
+<code>utility.h</code>、<code>utility.cpp</code>、<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 <pre class="tnmai_assignment">
 <strong>【課題05】</strong>
+<code>data</code>配列に以下の問題を追加しなさい。
+<table>
+<tr><th>漢字</th><th>読み</th><th>意味</th></tr>
+<tr><td>必定</td><td>ひつじょう</td><td>必ずそうなると決まっていること</td></tr>
+<tr><td>風情</td><td>ふぜい</td><td>ある場所や物事の持つ独特の雰囲気、味わい</td></tr>
+<tr><td>知己</td><td>ちき</td><td>自分をよく理解してくれる人、親しい友人</td></tr>
+<tr><td>境内</td><td>けいだい</td><td>神社、寺院の敷地内</td></tr>
+<tr><td>破綻</td><td>はたん</td><td>物事がうまくいかなくなること</td></tr>
+<tr><td>拘泥</td><td>こうでい</td><td>ひとつの考え方や行動にこだわること</td></tr>
+<tr><td>吟味</td><td>ぎんみ</td><td>物事を念入りに調べること</td></tr>
+<tr><td>承る</td><td>うけたまわる</td><td>敬意を持って受ける、「受ける」、「聞く」の謙譲語</td></tr>
+<tr><td>寸暇</td><td>すんか</td><td>ほんの少しの空き時間</td></tr>
+<tr><td>弄ぶ</td><td>もてあそぶ</td><td>手であれこれいじる、好き勝手に扱う</td></tr>
+<tr><td>灰汁</td><td>あく</td><td>食べ物を煮たときに出る渋みやえぐみの成分、独特の個性</td></tr>
+<tr><td>潔い</td><td>いさぎよい</td><td>思い切りがよい、道に反することがない</td></tr>
+<tr><td>借款</td><td>しゃっかん</td><td>金銭を借ること、国同士の長期的な金銭の貸し借り</td></tr>
+<tr><td>培う</td><td>つちかう</td><td>時間をかけて育てること</td></tr>
+<tr><td>老舗</td><td>しにせ</td><td>先祖代々同じ商売をしている信用のある店</td></tr>
+<tr><td>赴く</td><td>おもむく</td><td>ある場所、方向へ向かって行く</td></tr>
+<tr><td>疾病</td><td>しっぺい</td><td>健康でない状態、病気</td></tr>
+<tr><td>賄う</td><td>まかなう</td><td>費用や人手を用意する、必要な用を果たす</td></tr>
+<tr><td>界隈</td><td>かいわい</td><td>そのあたり一帯、特定の業種や趣味などの分野に関わる人々</td></tr>
+<tr><td>背く</td><td>そむく</td><td>取り決めや命令にさからう、予想されることと反対の結果になる</td></tr>
+</table>
+</pre>
+
+<pre class="tnmai_assignment">
+<strong>【課題06】</strong>
 <code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
-### 1.5 慣用句の意味の問題を作成する
+<div style="page-break-after: always"></div>
+
+## 3 慣用句
+
+### 3.1 慣用句の意味の問題を作成する
 
 次に、「慣用句の意味を答える問題」を出題する関数を作成しましょう。慣用句は英語で`Idiom`(イディオム)なので、関数名は`CreateIdiomExam`(クリエイト・イディオム・エグザム)とします。
 
@@ -372,7 +580,7 @@ int gcd(int a, int b)
 ```diff
      questions.push_back({
        "「" + string(e.kanji) + "」の読みをひらがなで書くと？",
-       e.yomi });
+       e.reading });
    }
    return questions;
  }
@@ -399,20 +607,25 @@ int gcd(int a, int b)
 +  const vector<int> indices = CreateRandomIndices(size(data));
 +
 +  for (int i = 0; i < quizCount; i++) {
-+    const auto& e = data[indices[i]]; // 慣用句と正しい意味
-+    const auto& f = data[indices[(i + 1) % size(data)]]; // 間違った意味
++    // 間違った番号をランダムに選ぶ
++    const int correctIndex = indices[i];
++    vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
-+    string s = "「" + string(e.idiom) + "」の意味として正しい番号を選べ\n";
-+    s += string("  1:") + e.meaning + "\n";
-+    s += string("  2:") + f.meaning;
++    // ランダムな位置を正しい番号で上書き
++    const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++    answers[correctNo - 1] = correctIndex;
++
++    // 問題文を作成
++    string s = "「" + string(data[correctIndex].idiom) + "」の意味として正しい番号を選べ\n";
++    s += std::string("  1:") + data[answers[0]].meaning + "\n";
++    s += std::string("  2:") + data[answers[1]].meaning + "\n";
++    s += std::string("  3:") + data[answers[2]].meaning;
 +
 +    questions.push_back({ s, "1" });
 +  }
 +  return questions;
 +}
 ```
-
-慣用句の意味を答える問題は、「2つの選択肢のうち正しいほうを答える」という形にしてみました。
 
 それでは、国語に「慣用句の意味を答える問題」を追加しましょう。`main.cpp`を開き、`CreateIdiomExam`関数を呼び出すプログラムを追加してください。
 
@@ -433,84 +646,12 @@ int gcd(int a, int b)
 プログラムが書けたらビルドして実行してください。漢字の問題のあとで、慣用句の問題が出題されたら成功です。
 
 <pre class="tnmai_assignment">
-<strong>【課題06】</strong>
+<strong>【課題07】</strong>
 <code>main.cpp</code>、<code>exam_japanese.h</code>、<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
-### 1.6 正解の番号をランダムにする
-
-現在の慣用句の問題は、常に`1`が正解になっています。これではクイズの意味がありません。そこで、正解の番号をランダムにしましょう。
-
-```diff
-   constexpr int quizCount = 5;
-   QuestionList questions;
-   questions.reserve(quizCount);
-   const vector<int> indices = CreateRandomIndices(size(data));
-+  random_device rd;
-
-   for (int i = 0; i < quizCount; i++) {
-     const auto& e = data[indices[i]]; // 慣用句と正しい意味
-     const auto& f = data[indices[(i + 1) % size(data)]]; // 間違った意味
-
-     string s = "「" + string(e.idiom) + "」の意味として正しい番号を選べ\n";
-+    const int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
-+    if (correctNo == 1) {
-       s += std::string("  1:") + e.meaning + "\n";
-       s += std::string("  2:") + f.meaning;
-+    } else {
-+      s += std::string("  1:") + f.meaning + "\n";
-+      s += std::string("  2:") + e.meaning;
-+    }
-
--    questions.push_back({ s, "1" });
-+    questions.push_back({ s, to_string(correctNo) });
-   }
-
-   for (const auto& e : questions) {
-     cout << e.q << "\n";
-```
-
-このプログラムでは`random_device`クラスで乱数を生成しています。「真の乱数」が遅いとはいっても、この程度の問題数ではほとんど影響はないからです。
-
-プログラムが書けたらビルドして実行してください。慣用句の問題について、正解が`2`の問題が出題されていたら成功です。
-
 <pre class="tnmai_assignment">
 <strong>【課題08】</strong>
-<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
-</pre>
-
-### 1.7 間違った答えをランダムにする
-
-現在、「間違った答え」は次の問題の答えになっています。これでは、次の問題の答えが分かったも同然です。そこで、間違った答えをランダムに選びましょう。
-
-間違った意味を選ぶプログラムを、次のように変更してください。
-
-```diff
-   const vector<int> indices = CreateRandomIndices(size(data));
-   random_device rd;
-
-   for (int i = 0; i < quizCount; i++) {
-     const auto& e = data[indices[i]]; // 慣用句と正しい意味
-+
-+    // 間違った意味をランダムに選ぶ
-+    // i以上の値が選ばれた場合、1を足すことでi番目を除外する
-+    // 1を足したときに値が範囲外にならないように、最大値を「要素数-2」としている
-+    int wrongIndex = std::uniform_int_distribution<>(0, size(data) - 2)(rd);
-+    if (wrongIndex >= i) {
-+      wrongIndex++;
-+    }
--    const auto& f = data[indices[(i + 1) % size(data)]]; // 間違った意味
-+    const auto& f = data[indices[wrongIndex]]; // 間違った意味
-
-     string s = "「" + string(e.idiom) + "」の意味として正しい番号を選べ\n";
-     const int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
-     if (correctNo == 1) {
-```
-
-プログラムが書けたらビルドして実行してください。毎回、異なる「間違った答え」が表示されたら成功です。
-
-<pre class="tnmai_assignment">
-<strong>【課題09】</strong>
 慣用句の<code>data</code>配列に以下の問題を追加しなさい。
 <table>
 <tr><th>慣用句</th><th>意味</th></tr>
@@ -528,11 +669,11 @@ int gcd(int a, int b)
 </pre>
 
 <pre class="tnmai_assignment">
-<strong>【課題10】</strong>
+<strong>【課題09】</strong>
 <code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 <pre class="tnmai_assignment">
-<strong>【課題11】</strong>
+<strong>【課題10】</strong>
 <code>Git</code>メニューから「同期」を選択し、コミットをリモートリポジトリに反映しなさい。
 </pre>
