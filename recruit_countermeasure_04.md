@@ -70,7 +70,7 @@
 +}
 ```
 
-英単語の問題を作成するプログラムの内容は、国語のプログラムとよく似ています。
+英単語の問題を作成するプログラムの内容は、国語のプログラムとよく似ています。言語が違うだけで、「語と意味のつながりを答える」という点は同じだからです。
 
 それでは、英語の問題が出題されるようにしましょう。<br>
 `main.cpp`を開き、`exam_english.h`をインクルードしてください。
@@ -233,27 +233,20 @@
 +
 +  case 3: // 英単語の意味を答える
 +    for (int i = 0; i < quizCount; i++) {
-+      const auto& e = data[indices[i]];
++      // 間違った番号をランダムに選ぶ
++      const int correctIndex = indices[i];
++      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
-+      // 間違った意味をランダムに選ぶ
-+      int wrongIndex = std::uniform_int_distribution<>(0, size(data) - 2)(rd);
-+      if (wrongIndex >= i) {
-+        wrongIndex++;
-+      }
-+      const auto& f = data[indices[wrongIndex]];
++      // ランダムな位置を正しい番号で上書き
++      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      answers[correctNo - 1] = correctIndex;
 +
-+      // 問題文を作成する
-+      string s = "「" + string(e.word) + "」の意味として正しい番号を選べ\n";
-+      const int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
-+      if (correctNo == 1) {
-+        s += std::string("  1:") + e.meaning + "\n";
-+        s += std::string("  2:") + f.meaning;
-+      } else {
-+        s += std::string("  1:") + f.meaning + "\n";
-+        s += std::string("  2:") + e.meaning;
-+      }
++      // 問題文を作成
++      string s = "「" + string(data[correctIndex].word) + "」の意味として正しい番号を選べ\n";
++      s += std::string("  1:") + data[answers[0]].meaning + "\n";
++      s += std::string("  2:") + data[answers[1]].meaning + "\n";
++      s += std::string("  3:") + data[answers[2]].meaning;
 +
-+      // 問題と答えを追加する
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
 +    break;
@@ -263,7 +256,7 @@
  }
 ```
 
-国語の問題のときと同じ方法を使って、「正解」と「間違い」の2つの答えをランダムな順番にしています。
+国語の問題のときと同じ方法を使って、「正解」と「間違い」の順番をランダムに決めています。
 
 プログラムが書けたらビルドして実行してください。何度か英語の問題を実行し、違う種類の問題が出題されることを確認してください。そのうえで、問題の正答、誤答が正しく判定されることが確認できたら成功です。
 
@@ -467,24 +460,20 @@
 
    case 1: // 定型文の意味を答える
 +    for (int i = 0; i < quizCount; i++) {
-+      const auto& e = data[indices[i]];
++      // 間違った番号をランダムに選ぶ
++      const int correctIndex = indices[i];
++      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
-+      // 間違った意味をランダムに選ぶ
-+      int wrongIndex = std::uniform_int_distribution<>(0, size(data) - 2)(rd);
-+      if (wrongIndex >= i) {
-+        wrongIndex++;
-+      }
-+      const auto& f = data[indices[wrongIndex]];
++      // ランダムな位置を正しい番号で上書き
++      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      answers[correctNo - 1] = correctIndex;
 +
-+      string s = "「" + string(e.phrase) + "」の意味として正しい番号を選べ\n";
-+      int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
-+      if (correctNo == 1) {
-+        s += std::string("  1:") + e.meaning + "\n";
-+        s += std::string("  2:") + f.meaning;
-+      } else {
-+        s += std::string("  1:") + f.meaning + "\n";
-+        s += std::string("  2:") + e.meaning;
-+      }
++      // 問題文を作成
++      string s = "「" + string(data[correctIndex].phrase) + "」の意味として正しい番号を選べ\n";
++      s += std::string("  1:") + data[answers[0]].meaning + "\n";
++      s += std::string("  2:") + data[answers[1]].meaning + "\n";
++      s += std::string("  3:") + data[answers[2]].meaning;
++
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
      break;
@@ -502,26 +491,20 @@
 
    case 2: // 意味の合う定型文を答える
 +    for (int i = 0; i < quizCount; i++) {
-+      const auto& e = data[indices[i]];
++      // 間違った番号をランダムに選ぶ
++      const int correctIndex = indices[i];
++      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
-+      // 間違った意味をランダムに選ぶ
-+      // i以上の値が選ばれた場合、1を足すことでi番目を除外する
-+      // 1を足したときに値が範囲外にならないように、最大値を「要素数-2」としている
-+      int wrongIndex = std::uniform_int_distribution<>(0, size(data) - 2)(rd);
-+      if (wrongIndex >= i) {
-+        wrongIndex++;
-+      }
-+      const auto& f = data[indices[wrongIndex]];
++      // ランダムな位置を正しい番号で上書き
++      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      answers[correctNo - 1] = correctIndex;
 +
-+      string s = "「" + string(e.meaning) + "」に対応する定型文を選べ\n";
-+      int correctNo = std::uniform_int_distribution<>(1, 2)(rd);
-+      if (correctNo == 1) {
-+        s += std::string("  1:") + e.phrase + "\n";
-+        s += std::string("  2:") + f.phrase;
-+      } else {
-+        s += std::string("  1:") + f.phrase + "\n";
-+        s += std::string("  2:") + e.phrase;
-+      }
++      // 問題文を作成
++      string s = "「" + string(data[correctIndex].meaning) + "」に対応する定型文を選べ\n";
++      s += std::string("  1:") + data[answers[0]].phrase + "\n";
++      s += std::string("  2:") + data[answers[1]].phrase + "\n";
++      s += std::string("  3:") + data[answers[2]].phrase;
++
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
      break;
@@ -566,6 +549,11 @@
 <tr><td>neither [A] nor [B]</td><td>[A]も[B]も両方とも～ない</td><td>We have neither the time nor the resources.</td><td>我々には時間も資源もない。</td></tr>
 <tr><td>it is not until [A] that [B]</td><td>[A]して初めて[B]する</td><td>It was not until dawn that the trouble solved.</td><td>夜明けまで問題は解決しなかった。</td></tr>
 <tr><td>[A] as well as [B]</td><td>[B]だけでなく[A]も</td><td>He can speak French as well as English.</td><td>彼は英語だけでなくフランス語も話せる。</td></tr>
+<tr><td>[A] remain [B]</td><td>[A]が[B]のままでいる</td><td>She remained silent.</td><td>彼女は黙っていた。</td></tr>
+<tr><td>both [A] and [B]</td><td>[A]と[B]の両方とも</td><td>This bag is both quality and cheap.</td><td>このかばんは品質が良いうえに安い。</td></tr>
+<tr><td>either [A] or [B]</td><td>[A]か[B]のどちらか</td><td>He can either read and write Japanese.</td><td>彼は日本語の読み書きができる。</td></tr>
+<tr><td>not only [A] but also [B]</td><td>[A]だけでなく[B]も</td><td>He likes not only movies but also books.</td><td>彼は映画だけでなく本も好きだ。</td></tr>
+<tr><td>take care of [A]</td><td>[A]の世話をする</td><td>She always takes care of her sister.</td><td>彼女はいつも妹の面倒を見ている。</td></tr>
 </table>
 </pre>
 
