@@ -501,10 +501,11 @@ int gcd(int a, int b)
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
-+      string s = "「" + string(data[correctIndex].meaning) + "」を意味する熟語の番号を選べ\n";
-+      s += std::string("  1:") + data[answers[0]].kanji + "\n";
-+      s += std::string("  2:") + data[answers[1]].kanji + "\n";
-+      s += std::string("  3:") + data[answers[2]].kanji;
++      string s = "「" + string(data[correctIndex].meaning) +
++        "」を意味する熟語の番号を選べ";
++      for (int j = 0; j < 3; j++) {
++        s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].kanji;
++      }
 +
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
@@ -527,7 +528,6 @@ int gcd(int a, int b)
 <table>
 <tr><th>漢字</th><th>読み</th><th>意味</th></tr>
 <tr><td>必定</td><td>ひつじょう</td><td>必ずそうなると決まっていること</td></tr>
-<tr><td>風情</td><td>ふぜい</td><td>ある場所や物事の持つ独特の雰囲気、味わい</td></tr>
 <tr><td>知己</td><td>ちき</td><td>自分をよく理解してくれる人、親しい友人</td></tr>
 <tr><td>境内</td><td>けいだい</td><td>神社、寺院の敷地内</td></tr>
 <tr><td>破綻</td><td>はたん</td><td>物事がうまくいかなくなること</td></tr>
@@ -540,14 +540,9 @@ int gcd(int a, int b)
 <tr><td>潔い</td><td>いさぎよい</td><td>思い切りがよい、道に反することがない</td></tr>
 <tr><td>借款</td><td>しゃっかん</td><td>金銭を借ること、国同士の長期的な金銭の貸し借り</td></tr>
 <tr><td>培う</td><td>つちかう</td><td>時間をかけて育てること</td></tr>
-<tr><td>老舗</td><td>しにせ</td><td>先祖代々同じ商売をしている信用のある店</td></tr>
 <tr><td>赴く</td><td>おもむく</td><td>ある場所、方向へ向かって行く</td></tr>
 <tr><td>疾病</td><td>しっぺい</td><td>健康でない状態、病気</td></tr>
-<tr><td>賄う</td><td>まかなう</td><td>費用や人手を用意する、必要な用を果たす</td></tr>
-<tr><td>界隈</td><td>かいわい</td><td>そのあたり一帯、特定の業種や趣味などの分野に関わる人々</td></tr>
-<tr><td>背く</td><td>そむく</td><td>取り決めや命令にさからう、予想されることと反対の結果になる</td></tr>
-</table>
-</pre>
+<tr><td>老舗</td><td>しにせ</td><td>先祖代々同じ商売をしている信用のある店</td></tr></table></pre>
 
 <pre class="tnmai_assignment">
 <strong>【課題06】</strong>
@@ -616,10 +611,10 @@ int gcd(int a, int b)
 +    answers[correctNo - 1] = correctIndex;
 +
 +    // 問題文を作成
-+    string s = "「" + string(data[correctIndex].idiom) + "」の意味として正しい番号を選べ\n";
-+    s += std::string("  1:") + data[answers[0]].meaning + "\n";
-+    s += std::string("  2:") + data[answers[1]].meaning + "\n";
-+    s += std::string("  3:") + data[answers[2]].meaning;
++    string s = "「" + string(data[correctIndex].idiom) + "」の意味として正しい番号を選べ";
++    for (int j = 0; j < 3; j++) {
++      s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].meaning;
++    }
 +
 +    questions.push_back({ s, "1" });
 +  }
@@ -664,9 +659,7 @@ int gcd(int a, int b)
 <tr><td>青菜に塩</td><td>元気を失っている様(さま)</td></tr>
 <tr><td>他山の石</td><td>人の失敗を、自分の行いを正す参考にする</td></tr>
 <tr><td>口を糊(のり)する</td><td>余裕のない貧しい生活をする</td></tr>
-<tr><td>身命を賭す</td><td>命を投げ出す覚悟で努力する</td></tr>
-</table>
-</pre>
+<tr><td>身命を賭す</td><td>命を投げ出す覚悟で努力する</td></tr></table></pre>
 
 <pre class="tnmai_assignment">
 <strong>【課題09】</strong>
