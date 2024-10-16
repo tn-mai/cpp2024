@@ -497,7 +497,7 @@ int gcd(int a, int b)
 +      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +      // ランダムな位置を正しい番号で上書き
-+      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      const int correctNo = uniform_int_distribution<>(1, 3)(rd);
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
@@ -573,10 +573,10 @@ int gcd(int a, int b)
 次に`exam_japanese.cpp`を開き、`CreateKanjiExam`関数の定義の下に、次のプログラムを追加してください。
 
 ```diff
-     questions.push_back({
-       "「" + string(e.kanji) + "」の読みをひらがなで書くと？",
-       e.reading });
-   }
+       questions.push_back({ s, to_string(correctNo) });
+     }
+   } // if type
+
    return questions;
  }
 +
@@ -608,7 +608,7 @@ int gcd(int a, int b)
 +    vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +    // ランダムな位置を正しい番号で上書き
-+    const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++    const int correctNo = uniform_int_distribution<>(1, 3)(rd);
 +    answers[correctNo - 1] = correctIndex;
 +
 +    // 問題文を作成
