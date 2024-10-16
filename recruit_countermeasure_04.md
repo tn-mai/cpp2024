@@ -31,6 +31,9 @@
 続いて、`CreateHomophoneExam`関数の定義を作成しましょう。まずは問題データを定義します。`exam_japanese.cpp`を開き、`CreateIdiomExam`関数の定義の下に、次のプログラムを追加してください。
 
 ```diff
+       s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].meaning;
+     }
+
      questions.push_back({ s, to_string(correctNo) });
    }
    return questions;
@@ -76,7 +79,6 @@
 次に、問題データから問題を作成します。問題データの定義の下に、次のプログラムを追加してください。
 
 ```diff
-     { "おさめる", {
        { "納める", "金や物を渡すべきところに渡す" },
        { "治める", "乱れている物事を落ち着いて穏やかな状態にする" },
        { "修める", "行いや人格を正しくする、学問や技芸などを学んで身につける" }}},
@@ -101,7 +103,7 @@
 +    }
 +
 +    // 正しい番号を選択
-+    const int correctNo = std::uniform_int_distribution<>(1, count)(rd);
++    const int correctNo = uniform_int_distribution<>(1, count)(rd);
 +
 +    // 問題文を作成
 +    const vector<int> answers = CreateRandomIndices(count);
@@ -163,14 +165,13 @@
 <tr><td>実態</td><td>物事の本当の状態</td></tr>
 <tr><td></td><td></td></tr>
 <tr><td>脅威</td><td>強い力や勢いによって恐れさせること</td></tr>
-<tr><td>驚異</td><td>驚くほど素晴らしいものごと</td></tr>
-<tr><td></td><td></td></tr>
-<tr><td>会心</td><td>期待どおりに物事が運んで満足すること</td></tr>
-<tr><td>改心</td><td>悪い考えや行いを反省し、良い心に改めること</td></tr>
-</table>
+<tr><td>驚異</td><td>驚くほど素晴らしいものごと</td></tr></table>
 
 <table>
 <tr><th>漢字</th><th>意味</th></tr>
+<tr><td>会心</td><td>期待どおりに物事が運んで満足すること</td></tr>
+<tr><td>改心</td><td>悪い考えや行いを反省し、良い心に改めること</td></tr>
+<tr><td></td><td></td></tr>
 <tr><td>占める</td><td>場所、位置、地位などを自分のものにする</td></tr>
 <tr><td>締める</td><td>強く引っ張ったりひねったりして、緩みのないようにする</td></tr>
 <tr><td>閉める</td><td>物を動かしてすき間をふさぐ</td></tr>
@@ -205,7 +206,7 @@
 `exam_japanese.cpp`を開き、`CreateHomophoneExam`関数の定義の下に、次のプログラムを追加してください。
 
 ```diff
-       break;
+       s += "\n  " + to_string(j + 1) + ":" + e.words[answers[j]].meaning;
      }
      questions.push_back({ s, to_string(correctNo) });
    }
@@ -239,21 +240,19 @@
 +    vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +    // ランダムな位置を正しい番号で上書き
-+    const int correctNo = std::uniform_int_distribution<>(1, 4)(rd);
++    const int correctNo = uniform_int_distribution<>(1, 4)(rd);
 +    answers[correctNo - 1] = correctIndex;
 +
 +    // 問題文を作成
-+    const int object = std::uniform_int_distribution<>(0, 1)(rd);
++    const int object = uniform_int_distribution<>(0, 1)(rd);
 +    const int other = (object + 1) % 2;
 +    string s = "「" + string(data[correctIndex].kanji[object]) +
 +      "」の対義語として正しい番号を選べ";
 +    for (int j = 0; j < 4; j++) {
 +      s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].kanji[other];
 +    }
-+
 +    questions.push_back({ s, to_string(correctNo) });
 +  }
-+
 +  return questions;
 +}
 ```
@@ -263,8 +262,6 @@
 それでは、作成した関数を`main`関数から呼び出しましょう。`main.cpp`を開き、国語の問題を設定するプログラムに次のプログラムを追加してください。
 
 ```diff
-   if (subject == 2) {
-     questions = CreateKanjiExam();
      QuestionList idiomExam = CreateIdiomExam();
      questions.insert(questions.end(), idiomExam.begin(), idiomExam.end());
      QuestionList homophoneExam = CreateHomophoneExam();
@@ -325,6 +322,8 @@
 次に、`exam_japanese.cpp`を開き、`CreateAntonymExam`関数の定義の下に、次のプログラムを追加してください。
 
 ```diff
+       s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].kanji[other];
+     }
      questions.push_back({ s, to_string(correctNo) });
    }
    return questions;
@@ -359,7 +358,6 @@
 類義語は複数存在することが多いため、最大4つまで設定できるようにしてみました。問題文を作成する
 
 ```diff
-   constexpr int quizCount = 5;
    QuestionList questions;
    questions.reserve(quizCount);
    const vector<int> indices = CreateRandomIndices(size(data));
@@ -409,9 +407,6 @@
 それでは、作成した関数を`main`関数から呼び出しましょう。`main.cpp`を開き、国語の問題を設定するプログラムに次のプログラムを追加してください。
 
 ```diff
-   if (subject == 2) {
-     questions = CreateKanjiExam();
-     QuestionList idiomExam = CreateIdiomExam();
      questions.insert(questions.end(), idiomExam.begin(), idiomExam.end());
      QuestionList homophoneExam = CreateHomophoneExam();
      questions.insert(questions.end(), homophoneExam.begin(), homophoneExam.end());
@@ -460,11 +455,3 @@
 <strong>【課題10】</strong>
 <code>Git</code>メニューから「同期」を選択し、コミットをリモートリポジトリに反映しなさい。
 </pre>
-
-
-
-
-
-
-
-
