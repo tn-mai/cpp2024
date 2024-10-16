@@ -158,7 +158,7 @@ int gcd(int a, int b)
 +  constexpr int quizCount = 5;
 +  QuestionList questions;
 +  questions.reserve(quizCount);
-+  for (int i = 0; i < quizCount; i++>) {
++  for (int i = 0; i < quizCount; i++) {
 +    const auto& e = data[i];
 +    questions.push_back({
 +      "「" + string(e.kanji) + "」の読みをひらがなで答えよ",
@@ -494,7 +494,7 @@ int gcd(int a, int b)
 +    for (int i = 0; i < quizCount; i++) {
 +      // 間違った番号をランダムに選ぶ
 +      const int correctIndex = indices[i];
-+      vector<int> answers = CreateRandomIndices(size(data), correctIndex);
++      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +      // ランダムな位置を正しい番号で上書き
 +      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
@@ -600,6 +600,7 @@ int gcd(int a, int b)
 +  QuestionList questions;
 +  questions.reserve(quizCount);
 +  const vector<int> indices = CreateRandomIndices(size(data));
++  random_device rd;
 +
 +  for (int i = 0; i < quizCount; i++) {
 +    // 間違った番号をランダムに選ぶ
@@ -616,7 +617,7 @@ int gcd(int a, int b)
 +      s += "\n  " + to_string(j + 1) + ":" + data[answers[j]].meaning;
 +    }
 +
-+    questions.push_back({ s, "1" });
++    questions.push_back({ s, to_string(correctNo) });
 +  }
 +  return questions;
 +}
