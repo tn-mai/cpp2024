@@ -6,7 +6,8 @@
 
 ### 1.1 question.hを作成する
 
-本テキストでは国語の問題を追加していきます。しかし、数々の数学の問題を作成したことで、`main.cpp`の全体を見るのが大変になりつつあります。これ以上`main.cpp`に問題を追加すると、もっと見づらくなるでしょう。
+本テキストでは国語の問題を追加していきます。しかし、数々の数学の問題を作成したことで、
+`main.cpp`の全体を見るのが大変になりつつあります。これ以上`main.cpp`に問題を追加すると、もっと見づらくなるでしょう。
 
 見づらくなることを避けるため、今後は教科ごとにファイルを分けることにします。そのためにまず、問題データを表現する`Question`構造体を、単独のファイルに移動させましょう。
 
@@ -109,14 +110,17 @@ int gcd(int a, int b)
 
 <pre class="tnmai_assignment">
 <strong>【課題01】</strong>
-<code>main.cpp</code>と<code>question.h</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+<code>main.cpp</code>, <code>question.h</code>, <code>recruit_quiz.vcproj</code>, <code>recruit_quiz.vcproj.filters</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+(<code>recruit_quiz.vcproj</code>: プロジェクトの詳細設定ファイル
+ <code>recruit_quiz.vcproj.filters</code>: ソリューションに含まれる項目の設定ファイル)
 </pre>
 
 ### 1.2 漢字の読み取り問題を作成する
 
 それでは、「漢字の読み取り」問題を出題する関数を作っていきましょう。
 
-最初に、関数を宣言するヘッダファイルを追加します。ソリューションエクスプローラーの「ソースファイル」を右クリックし、「追加→新しい項目」を選択してください。そして、`exam_japanese.h`という名前のヘッダファイルを追加してください。
+最初に、関数を宣言するヘッダファイルを追加します。ソリューションエクスプローラーの「ソースファイル」を右クリックし、「追加→新しい項目」を選択してください。<br>
+そして、`exam_japanese.h`という名前のヘッダファイルを追加してください。
 
 >`exam`(エグザム)は「試験」という意味です。
 
@@ -170,7 +174,8 @@ int gcd(int a, int b)
 
 ### 1.3 国語の問題を出題する
 
-作成した関数を使って、国語の問題を出題するようにしましょう。`main.cpp`を開き、`exam_japanese.h`をインクルードしてください。
+作成した関数を使って、国語の問題を出題するようにしましょう。<br>
+`main.cpp`を開き、`exam_japanese.h`をインクルードしてください。
 
 ```diff
  #include "question.h"
@@ -203,11 +208,12 @@ int gcd(int a, int b)
      string answer;
 ```
 
-プログラムが書けたらビルドして実行してください。教科選択が表示されたら、`2`を入力して`Enter`を押してください。その後、国語の問題が出題されたら成功です。正答と誤答の両方を試すこと。
+プログラムが書けたらビルドして実行してください。教科選択が表示されたら、`2`を入力して
+`Enter`を押してください。その後、国語の問題が出題されたら成功です。正答と誤答の両方を試すこと。
 
 <pre class="tnmai_assignment">
 <strong>【課題02】</strong>
-<code>main.cpp</code>、<code>exam_japanese.h</code>、<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+<code>main.cpp</code>、<code>exam_japanese.h</code>、<code>exam_japanese.cpp</code>, <code>recruit_quiz.vcproj</code>, <code>recruit_quiz.vcproj.filters</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 ### 1.4 出題順をランダムにする
@@ -256,7 +262,8 @@ int gcd(int a, int b)
 +}
 ```
 
->`indices`(インディシーズ)は`index`の複数形です。なお、`index`の複数形には`indexes`(インデクセス)もあります。`indices`のほうが古くから使われており一般的ですが、`indexes`も間違いではありません。
+>`indices`(インディシーズ)は`index`の複数形です。なお、`index`の複数形には<br>
+>`indexes`(インデクセス)もあります。`indices`のほうが古くから使われており一般的ですが、`indexes`も間違いではありません。
 
 続いて、`2`の「配列をランダムに入れ替える(シャッフルする)」プログラムを追加します。「配列のシャッフル」は以下の手順(アルゴリズム)で実現できます。
 
@@ -324,7 +331,7 @@ int gcd(int a, int b)
 
 <pre class="tnmai_assignment">
 <strong>【課題03】</strong>
-<code>utility.h</code>、<code>utility.cpp</code>、<code>exam_japanese.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+<code>utility.h</code>、<code>utility.cpp</code>、<code>exam_japanese.cpp</code>, <code>recruit_quiz.vcproj</code>, <code>recruit_quiz.vcproj.filters</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 <div style="page-break-after: always"></div>
@@ -352,7 +359,8 @@ int gcd(int a, int b)
 
 「間違った答えの一覧」は、言い換えると「すべての答えから正しい答えを除外したもの」です。そこで、「正しい答えのインデックスを除外した配列」を作成します。
 
-`utility.cpp`を開き、`CreateRandomIndices`関数の定義の下に、`CreateWrongIndices`関数の定義を追加してください。
+`utility.cpp`を開き、`CreateRandomIndices`関数の定義の下に`CreateWrongIndices`
+関数の定義を追加してください。
 
 ```diff
      indices[i] = indices[n];
@@ -382,7 +390,8 @@ int gcd(int a, int b)
 
 ところで、問題に間違った答えが混じっていても、いつも同じ順番で表示されていては、すぐに正しい答えを覚えてしまうでしょう。そのため、順番をランダムにする必要があります。
 
-ちょうど、`CreateRandomIndices`関数にはシャッフルを行う機能があります。`CreateWrongIndices`でも使えるように、シャッフル部分を関数に分けましょう。`utility.h`を開き、次のプログラムを追加してください。
+ちょうど、`CreateRandomIndices`関数にはシャッフルを行う機能があります。
+`CreateWrongIndices`でも使えるように、シャッフル部分を関数に分けましょう。`utility.h`を開き、次のプログラムを追加してください。
 
 ```diff
  #pragma once
