@@ -391,7 +391,8 @@ int gcd(int a, int b)
 ところで、問題に間違った答えが混じっていても、いつも同じ順番で表示されていては、すぐに正しい答えを覚えてしまうでしょう。そのため、順番をランダムにする必要があります。
 
 ちょうど、`CreateRandomIndices`関数にはシャッフルを行う機能があります。
-`CreateWrongIndices`でも使えるように、シャッフル部分を関数に分けましょう。`utility.h`を開き、次のプログラムを追加してください。
+`CreateWrongIndices`でも使えるように、シャッフル部分を関数に分けましょう。
+`utility.h`を開き、次のプログラムを追加してください。
 
 ```diff
  #pragma once
@@ -443,7 +444,8 @@ int gcd(int a, int b)
 
 これで、シャッフル機能を`Shuffle`(シャッフル)関数に分離できました。
 
-それでは、`CreateWrongIndices`関数にシャッフル機能を組み込みましょう。`CreateWrongIndices`関数の定義に、次のプログラムを追加してください。
+それでは、`CreateWrongIndices`関数にシャッフル機能を組み込みましょう。
+`CreateWrongIndices`関数の定義に、次のプログラムを追加してください。
 
 ```diff
  vector<int> CreateWrongIndices(int n, int correctIndex)
@@ -632,7 +634,8 @@ int gcd(int a, int b)
 +}
 ```
 
-それでは、国語に「慣用句の意味を答える問題」を追加しましょう。`main.cpp`を開き、`CreateIdiomExam`関数を呼び出すプログラムを追加してください。
+それでは、国語に「慣用句の意味を答える問題」を追加しましょう。`main.cpp`を開き、
+`CreateIdiomExam`関数を呼び出すプログラムを追加してください。
 
 ```diff
    cout << "教科を選んでください\n1=数学\n2=国語\n";
