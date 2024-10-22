@@ -99,8 +99,14 @@
    cin >> subject;
    if (subject == 2) {
      questions = CreateKanjiExam();
+     QuestionList synonymExam = CreateSynonymExam();
+     questions.insert(questions.end(), synonymExam.begin(), synonymExam.end());
+     QuestionList antonymExam = CreateAntonymExam();
+     questions.insert(questions.end(), antonymExam.begin(), antonymExam.end());
      QuestionList idiomExam = CreateIdiomExam();
      questions.insert(questions.end(), idiomExam.begin(), idiomExam.end());
+     QuestionList homophoneExam = CreateHomophoneExam();
+     questions.insert(questions.end(), homophoneExam.begin(), homophoneExam.end());
 +  } else if (subject == 3) {
 +    questions = CreateEnglishWordExam();
    }
@@ -114,7 +120,7 @@
 
 <pre class="tnmai_assignment">
 <strong>【課題01】</strong>
-<code>exam_english.h</code>、<code>exam_english.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+<code>exam_english.h</code>、<code>exam_english.cpp</code>, <code>recruit_quiz.vcproj</code>, <code>recruit_quiz.vcproj.filters</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 ### 1.2 問題のバリエーションを追加する
