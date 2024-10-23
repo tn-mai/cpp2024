@@ -363,8 +363,8 @@ int gcd(int a, int b)
 関数の定義を追加してください。
 
 ```diff
-     indices[i] = indices[n];
-     indices[n] = tmp;
+     indices[i] = indices[j];
+     indices[j] = tmp;
    }
 
    return indices;
@@ -434,8 +434,8 @@ int gcd(int a, int b)
    for (int i = n - 1; i > 0; i--) {
      const int n = uniform_int_distribution<>(0, i)(rand);
      const int tmp = indices[i];
-     indices[i] = indices[n];
-     indices[n] = tmp;
+     indices[i] = indices[j];
+     indices[j] = tmp;
    }
 -
 -  return indices;
