@@ -379,7 +379,7 @@
 +    string s = "「" + string(data[correctIndex].kanji[object]) +
 +      "」の類義語として正しい番号を選べ";
 +    for (int j = 0; j < 4; j++) {
-+      if (j == correctIndex) {
++      if (j == correctNo) {
 +        // 出題する語「以外」の類義語を正解として選択
 +        int other = uniform_int_distribution<>(0, e.count - 2)(rd);
 +        if (other >= object) {
