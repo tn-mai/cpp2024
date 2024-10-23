@@ -2,7 +2,7 @@
 
 # 一般常識(国語その2)
 
-## 1 同音異義語、同君異義語、対義語、類義語
+## 1 同音異義語、同訓異義語、対義語、類義語
 
 ### 1.1 読みが同じで意味が異なる語の問題を作成する
 
@@ -90,14 +90,13 @@
 +  const vector<int> indices = CreateRandomIndices(size(data));
 +  random_device rd;
 +
-+  const int type = uniform_int_distribution<>(0, 1)(rd);
 +  for (int i = 0; i < quizCount; i++) {
 +    const auto& e = data[indices[i]];
 +
 +    // 要素数を計算
 +    int count = 0;
 +    for (; count < size(e.words); count++) {
-+      if (!e.words[j].kanji) {
++      if (!e.words[count].kanji) {
 +        break;
 +      }
 +    }
