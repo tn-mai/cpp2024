@@ -368,12 +368,12 @@
 +    vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +    // ランダムな位置を正しい番号で上書き
-+    const int correctNo = std::uniform_int_distribution<>(1, 4)(rd);
++    const int correctNo = uniform_int_distribution<>(1, 4)(rd);
 +    answers[correctNo - 1] = correctIndex;
 +
 +    // 出題する類義語を選択
 +    const auto& e = data[indices[i]];
-+    const int object = std::uniform_int_distribution<>(0, e.count - 1)(rd);
++    const int object = uniform_int_distribution<>(0, e.count - 1)(rd);
 +
 +    // 問題文を作成
 +    string s = "「" + string(data[correctIndex].kanji[object]) +
@@ -381,7 +381,7 @@
 +    for (int j = 0; j < 4; j++) {
 +      if (j == correctIndex) {
 +        // 出題する語「以外」の類義語を正解として選択
-+        int other = std::uniform_int_distribution<>(0, e.count - 2)(rd);
++        int other = uniform_int_distribution<>(0, e.count - 2)(rd);
 +        if (other >= object) {
 +          other++;
 +        }
@@ -389,7 +389,7 @@
 +      } else {
 +        // 誤答を選択
 +        const auto& f = data[answers[j]];
-+        const  int k = std::uniform_int_distribution<>(0, f.count - 1)(rd);
++        const  int k = uniform_int_distribution<>(0, f.count - 1)(rd);
 +        s += "\n  " + to_string(j + 1) + ":" + f.kanji[k];
 +      }
 +    }
