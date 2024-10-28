@@ -113,7 +113,6 @@
 
    for (const auto& e : questions) {
      cout << e.q << "\n";
-     string answer;
 ```
 
 プログラムが書けたらビルドして実行してください。教科選択で`3`を選び、英単語の問題が出題されたら成功です。
@@ -248,7 +247,8 @@
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
-+      string s = "「" + string(data[correctIndex].word) + "」の意味として正しい番号を選べ\n";
++      string s = "「" + string(data[correctIndex].word) +
++        "」の意味として正しい番号を選べ\n";
 +      s += std::string("  1:") + data[answers[0]].meaning + "\n";
 +      s += std::string("  2:") + data[answers[1]].meaning + "\n";
 +      s += std::string("  3:") + data[answers[2]].meaning;
@@ -475,7 +475,8 @@
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
-+      string s = "「" + string(data[correctIndex].phrase) + "」の意味として正しい番号を選べ\n";
++      string s = "「" + string(data[correctIndex].phrase) +
++        "」の意味として正しい番号を選べ\n";
 +      s += std::string("  1:") + data[answers[0]].meaning + "\n";
 +      s += std::string("  2:") + data[answers[1]].meaning + "\n";
 +      s += std::string("  3:") + data[answers[2]].meaning;
@@ -537,12 +538,12 @@
 
 プログラムが書けたらビルドして実行してください。教科選択で`3`を選び、英単語の次に定型文の問題が出題されたら成功です。
 
-<div style="page-break-after: always"></div>
-
 <pre class="tnmai_assignment">
 <strong>【課題05】</strong>
 <code>exam_english.h</code>、<code>exam_english.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
+
+<div style="page-break-after: always"></div>
 
 <pre class="tnmai_assignment">
 <strong>【課題06】</strong>
