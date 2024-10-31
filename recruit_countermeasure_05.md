@@ -553,12 +553,12 @@
 <tr><th>定型文</th><th>意味</th><th>例文</th><th>日本語訳</th>
 <tr><td>be going to [A]</td><td>[A]するつもりだ</td><td>I am going to visit Osaka.</td><td>大阪に行くつもりだ。</td></tr>
 <tr><td>turn to [A] for [B]</td><td>[A]に[B]を求める</td><td>She turn to the friends for help.</td><td>彼女は友達に助けを求めた。</td></tr>
-<tr><td>neither [A] nor [B]</td><td>[A]も[B]も両方とも～ない</td><td>We have neither the time nor the resources.</td><td>我々には時間も資源もない。</td></tr>
 <tr><td>it is not until [A] that [B]</td><td>[A]して初めて[B]する</td><td>It was not until dawn that the trouble solved.</td><td>夜明けまで問題は解決しなかった。</td></tr>
 <tr><td>[A] as well as [B]</td><td>[B]だけでなく[A]も</td><td>He can speak French as well as English.</td><td>彼は英語だけでなくフランス語も話せる。</td></tr>
 <tr><td>[A] remain [B]</td><td>[A]が[B]のままでいる</td><td>She remained silent.</td><td>彼女は黙っていた。</td></tr>
 <tr><td>both [A] and [B]</td><td>[A]と[B]の両方とも</td><td>This bag is both quality and cheap.</td><td>このかばんは品質が良いうえに安い。</td></tr>
-<tr><td>either [A] or [B]</td><td>[A]か[B]のどちらか</td><td>He can either read and write Japanese.</td><td>彼は日本語の読み書きができる。</td></tr>
+<tr><td>either [A] or [B]</td><td>[A]か[B]のどちらか</td><td>Mom says that you can have either a dog or a cat.</td><td>母は、犬か猫のどちらかなら飼ってもいいと言っている。</td></tr>
+<tr><td>neither [A] nor [B]</td><td>[A]も[B]も両方ともない</td><td>We have neither the time nor the resources.</td><td>我々には時間も資源もない。</td></tr>
 <tr><td>not only [A] but also [B]</td><td>[A]だけでなく[B]も</td><td>He likes not only movies but also books.</td><td>彼は映画だけでなく本も好きだ。</td></tr>
 <tr><td>take care of [A]</td><td>[A]の世話をする</td><td>She always takes care of her sister.</td><td>彼女はいつも妹の面倒を見ている。</td></tr>
 </table>
