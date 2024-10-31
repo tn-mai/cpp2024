@@ -63,7 +63,6 @@
 +    questions.push_back({
 +      "「" + string(e.meaning) + "」を意味する英単語を答えよ",
 +      e.word });
-+    break;
 +  }
 +
 +  return questions;
