@@ -29,6 +29,8 @@
 
 続いて、C++ファイルを追加します。ソリューションエクスプローラーの「ソースファイル」を右クリックし、「追加→新しい項目」を選択してください。そして、`exam_science.cpp`という名前のC++ファイルを追加してください。
 
+<div style="page-break-after: always"></div>
+
 それでは、「等速直線運動」の問題から作成していきましょう。等速直線運動の公式は次のようになります。
 
 $$ x = vt $$
@@ -40,7 +42,7 @@ x = 移動距離
 $$
 
 <p align="center">
-<img src="images/lp06/uniform_linear_motion.png" width="66%" /><br>
+<img src="images/lp06/uniform_linear_motion.png" width="60%" /><br>
 [v=5m/sの場合の移動時間と移動距離]
 </p>
 
@@ -134,8 +136,9 @@ $$
 
 <pre class="tnmai_assignment">
 <strong>【課題01】</strong>
-<code>main.cpp</code>, <code>exam_science.h</code>, <code>exam_science.cpp</code>,
-<code>recruit_quiz.vcproj</code>, <code>recruit_quiz.vcproj.filters</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+<code>main.cpp</code>, <code>exam_science.h</code>, <code>exam_science.cpp</code>, <code>recruit_quiz.vcproj</code>,
+<code>recruit_quiz.vcproj.filters</code>を「ステージ」し、適切なメッセージを書いて
+「コミット」しなさい。
 </pre>
 
 ### 1.2 等速直線運動の問題を出題する(その2)
@@ -328,7 +331,8 @@ $$ a = \frac{v^2 - v_0^2}{2x} $$
 
 重力加速度は小数点以下第1位までの値で表されるため、問題の答えも少数を含む可能性があります。そこで、小数点以下第1位まで求める問題にしています。
 
-また、このプログラムでは、答えの小数点以下第1位までをプログラムで文字列化しています。`to_string`関数では小数点以下の桁数を制御できないからです。
+また、このプログラムでは、答えの小数点以下第1位までをプログラムで文字列化しています。
+`to_string`関数では小数点以下の桁数を制御できないからです。
 
 重力加速度の問題をもう一つ追加しましょう。ひとつめの重力加速度の問題を作成するプログラムの下に、次のプログラムを追加してください。
 
