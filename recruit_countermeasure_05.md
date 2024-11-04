@@ -8,7 +8,8 @@
 
 今回は、「英単語の読み書き」問題を出題する関数を作っていきます。
 
-最初に、関数を宣言するヘッダファイルを追加します。ソリューションエクスプローラーの「ソースファイル」を右クリックし、「追加→新しい項目」を選択してください。<br>
+最初に、関数を宣言するヘッダファイルを追加します。ソリューションエクスプローラーの<br>
+「ソースファイル」を右クリックし、「追加→新しい項目」を選択してください。<br>
 そして、`exam_english.h`という名前のヘッダファイルを追加してください。
 
 「英単語問題を作成する関数」の名前は`CreateEnglishWordExam`(クリエイト・イングリッシュ・ワード・エグザム、「英単語試験を作成する」という意味)とします。<br>
@@ -559,9 +560,7 @@
 <tr><td>either [A] or [B]</td><td>[A]か[B]のどちらか</td><td>Mom says that you can have either a dog or a cat.</td><td>母は、犬か猫のどちらかなら飼ってもいいと言っている。</td></tr>
 <tr><td>neither [A] nor [B]</td><td>[A]も[B]も両方ともない</td><td>We have neither the time nor the resources.</td><td>我々には時間も資源もない。</td></tr>
 <tr><td>not only [A] but also [B]</td><td>[A]だけでなく[B]も</td><td>He likes not only movies but also books.</td><td>彼は映画だけでなく本も好きだ。</td></tr>
-<tr><td>take care of [A]</td><td>[A]の世話をする</td><td>She always takes care of her sister.</td><td>彼女はいつも妹の面倒を見ている。</td></tr>
-</table>
-</pre>
+<tr><td>take care of [A]</td><td>[A]の世話をする</td><td>She always takes care of her sister.</td><td>彼女はいつも妹の面倒を見ている。</td></tr></table></pre>
 
 <pre class="tnmai_assignment">
 <strong>【課題07】</strong>
