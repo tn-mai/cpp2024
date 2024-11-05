@@ -150,7 +150,7 @@
    QuestionList questions;
    questions.reserve(quizCount);
    const vector<int> indices = CreateRandomIndices(size(data));
-   random_device rd;
++  random_device rd;
 
 +  // 問題の種類をランダムに選ぶ
 +  const int type = uniform_int_distribution<>(0, 3)(rd);
