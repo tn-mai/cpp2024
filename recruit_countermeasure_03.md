@@ -432,7 +432,7 @@ int gcd(int a, int b)
    random_device rd;
    mt19937 rand(rd());
    for (int i = n - 1; i > 0; i--) {
-     const int n = uniform_int_distribution<>(0, i)(rand);
+     const int j = uniform_int_distribution<>(0, i)(rand);
      const int tmp = indices[i];
      indices[i] = indices[j];
      indices[j] = tmp;
