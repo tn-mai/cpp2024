@@ -347,7 +347,7 @@ $$ a = \frac{v^2 - v_0^2}{2x} $$
 +
 +    int v0 = uniform_int_distribution<>(1, 10)(rd); // 初速
 +    t = uniform_int_distribution<>(1, 10)(rd);  // 移動時間
-+    int v = v0 - 98 * t; // 速度
++    int v = v0 * 10 - 98 * t; // 速度
 +    answer.clear();
 +    if (v < 0) {
 +      v = -v;
