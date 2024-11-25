@@ -346,17 +346,120 @@
 <code>recruit_quiz.vcproj.filters</code>, <code>japanese_politics.txt</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
+### 1.5 全角数値を半角数値に変換する
+
+現在のプログラムでは、単語などの入力は全角モード、数値の入力は半角モードのように、求められる答えによって全角モードと半角モードを切り替える必要があります。
+
+これまでは、数学では半角モード、それ以外は全角モードのように、教科単位で切り替えればよかったので、あまり問題にはなりませんでした。しかし、今回の政治問題は状況が異なります。
+
+政治問題の答えは、単語と数値の両方が混在しているからです。そのため、設問によって、全角モードと半角モードを適切に切り替えなくてはなりません。
+
+いちいちモードを切り替えるのは面倒ですし、うっかり全角モードで数値を入力して誤答になってしまう、という問題も起こり得ります。
+
+この問題を解決するために、全角の数値を半角に変換する関数を追加します。答えを全角で入力してしまった場合でも、この関数で半角に変換すれば、正答と判定されるはずです。
+
+なお、「全角」、「半角」という２つの名前が実際に意味するところは、環境によって異なります。Visual Studio 2022でコンソールアプリを開発している場合、全角は`SJIS`(エス・ジス)という文字コード、半角は`ASCII`(アスキー)という文字コードを意味します。
+
+そのため、実際に作成するのは「`SJIS`の数字を`ASCII`の数字に変換する関数」になります。関数名は`ConvertSjisNumberToAscii`(コンバート・エスジス・ナンバー・トゥ・アスキー、「SJISの数字をASCIIに変換する」という意味)とします。
+
+`utility.h`を開き、`Split`関数の宣言の下に、次のプログラムを追加してください。
+
+```diff
+ // 文字列を分割する
+ // s 分解する文字列
+ // c 区切り文字
+ std::vector<std::string> Split(const std::string& s, char c);
++
++// SJIS数値文字列をASCII数値文字列に変換する
++// sjis 変換元のsjis文字列
++std::string ConvertSjisNumberToAscii(const std::string& sjis);
+```
+
+次に`utility.cpp`を開き、`Split`関数の定義の下に、次のプログラムを追加してください。
+
+```diff
+   // 残った部分を文字列として分割
+   v.push_back(string(begin, end));
+
+   return v; // 分割した文字列を返す
+ }
++
++/*
++* SJIS数値文字列をASCII数値文字列に変換する
++*/
++std::string ConvertSjisNumberToAscii(const std::string& sjis)
++{
++  // 数値文字のSJISからASCIIへの変換表
++  static const struct {
++    int sjis;
++    char ascii;
++  } conversionTable[] = {
++    { 0x824f, '0' }, { 0x8250, '1' }, { 0x8251, '2' }, { 0x8252, '3' }, { 0x8253, '4' },
++    { 0x8254, '5' }, { 0x8255, '6' }, { 0x8256, '7' }, { 0x8257, '8' }, { 0x8258, '9' },
++    { 0x8144, '.'}, {0x817c, '-'},
++  };
++
++  // 文字コードを変換
++  string ascii;
++  for (auto i = sjis.begin(); i != sjis.end(); i++) {
++    const unsigned char a = i[0];
++    if (a < 0x80) {
++      // ASCII文字の場合はそのままコピーする
++      ascii.push_back(*i);
++    } else {
++      // SJIS文字の場合はASCII文字に変換する
++      const int code = a * 0x100 + (unsigned char)i[1];
++      const auto itr = find_if(begin(conversionTable), end(conversionTable),
++        [code](const auto& e) { return e.sjis == code; });
++      if (itr == end(conversionTable)) {
++        break; // 変換できない文字が見つかったら変換を打ち切る
++      }
++      ascii.push_back(itr->ascii);
++      i++; // 2バイト文字なので1バイト余分に進める
++    }
++  } // for i
++
++  return ascii;
++}
+```
+
+また、`SJIS`コードは「符号なし16ビット」で表現されるため、`char`型配列に格納すると一部は負数として見えます。しかし、見かけが負数だろうと、実体は「符号なし16ビット」です。そのため、値を読み取るときに`unsigned char`型にキャストする必要があります。
+
+`SJIS`コードを`char`型配列に格納するとき、1バイト目が上位8ビット、2バイト目が下位8ビットになります。このプログラムでは、１バイト目を`0x100`倍することで上位8ビットを作り出しています。
+
+それでは、数字文字を変換する関数を使って、答えを変換しましょう。`main.cpp`を開き、答えを入力するプログラムの下に次のプログラムを追加してください。
+
+```diff
+   for (const auto& e : questions) {
+     cout << e.q << "\n";
+     string answer;
+     cin >> answer;
++
++    const string ascii = ConvertSjisNumberToAscii(answer);
++    // 変換が成功した場合は文字列を置き換える
++    if ( ! ascii.empty()) {
++      answer = ascii;
++    }
+
+     if (answer == e.a) {
+       cout << "正解！\n";
+     } else {
+       cout << "間違い！ 正解は" << e.a << "\n";
+     }
+   } // for questions
+```
+
+プログラムが書けたらビルドして実行してください。教科選択で数学を選び、全角モードで答えを入力しても「正解！」と表示されたら成功です。
+
+>**［全角・半角とは何者なのか］**<br>
+>「全角」、「半角」という呼び名は、昔のコンピューターにおいて、日本語の漢字かな文字を16x16ドット、アルファベットなどの英数字を8x16ドットで表示していた頃の名残です。漢字かな文字を「全角」と呼ぶのは、印刷業界でほぼ正方形の文字を「全角」と呼んでいることに由来します。そして、英数字は漢字かな文字の半分の幅で表示されるので、「半角」と呼ばれるようになりました。
+
 <pre class="tnmai_assignment">
 <strong>【課題02】</strong>
-<code>Git</code>メニューから「同期」を選択し、コミットをリモートリポジトリに反映しなさい。
+<code>utility.h</code>, <code>utility.cpp</code>, <code>main.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
-
-
-
-
-
-
-
-
-
+<pre class="tnmai_assignment">
+<strong>【課題03】</strong>
+<code>Git</code>メニューから「同期」を選択し、コミットをリモートリポジトリに反映しなさい。
+</pre>
