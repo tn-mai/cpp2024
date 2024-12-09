@@ -158,7 +158,7 @@
 +  } // for i < genreCount
 +
 +  return questions;
-}
+ }
 ```
 
 `vector`クラスのイテレータとは異なり、`unordered_map`クラスのイテレータはランダムアクセスができません(`list`クラスのイテレータと同じタイプ)。つまり、適当な数値を足し引きして、指す位置を移動させることはできません。
@@ -185,7 +185,7 @@
    } // for i < genreCount
 
    return questions;
-}
+ }
 ```
 
 問題文には空欄がひとつ以上存在します。しかし、本テキストで作成しているプログラムには、「答えはひとつだけ」という制限があります。そこで、「複数の空欄を持つ問題文」を「ひとつだけ空欄を持つ問題文」に変換します。この変換は、
@@ -251,7 +251,7 @@
 +      int from = 0; // コピー元の先頭位置
 +      for (int k = 0; k < blanks.size(); k++) {
 +        const int end = blanks[k]; // 空欄の位置
-+        s.append(question.text, from, end - from); // 空欄の手前までの範囲コピー
++        s.append(question.text, from, end - from); // 空欄の手前までの範囲をコピー
 +
 +        if (k != index) {
 +          s += question.answers[k]; // 選ばれなかった空欄の場合は答えをコピー
@@ -275,7 +275,7 @@
        int from = 0; // コピー元の先頭位置
        for (int k = 0; k < blanks.size(); k++) {
          const int end = blanks[k];
-         s.append(question.text, from, end - from); // 問題文をコピー
+         s.append(question.text, from, end - from); // 空欄の手前までの範囲をコピー
          if (k != index) {
            s.append(question.answers[k]); // 選ばれなかった空欄の場合は答えをコピー
 +        } else {
@@ -338,7 +338,7 @@
      cout << e.q << "\n";
 ```
 
-プログラムが書けたらビルドして実行してください。教科選択で「政治」を選んだとき、「政治の問題」が出題されたら成功です。
+プログラムが書けたらビルドして実行してください。教科選択で`6`番の「政治」を選んだとき、「政治の問題」が出題されたら成功です。
 
 <pre class="tnmai_assignment">
 <strong>【課題01】</strong>
