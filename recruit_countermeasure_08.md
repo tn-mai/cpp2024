@@ -119,7 +119,7 @@
 +/**
 +* 都道府県の問題を作成する
 +*/
-+QuestionList CreateGeographyExam()
++QuestionList CreatePrefecturesExam()
 +{
 +  // 都道府県データ
 +  struct PrefectureData
@@ -304,7 +304,7 @@
    } else if (subject == 4) {
      questions = CreatePhysicsExam();
 +  } else if (subject == 5) {
-+    questions = CreateGeographyExam();
++    questions = CreatePrefecturesExam();
    }
 
    for (const auto& e : questions) {
