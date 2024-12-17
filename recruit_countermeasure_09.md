@@ -448,7 +448,20 @@
 
 `SJIS`コードを`char`型配列に格納するとき、1バイト目が上位8ビット、2バイト目が下位8ビットになります。このプログラムでは、１バイト目を`0x100`倍することで上位8ビットを作り出しています。
 
-それでは、数字文字を変換する関数を使って、答えを変換しましょう。`main.cpp`を開き、答えを入力するプログラムの下に次のプログラムを追加してください。
+それでは、数字文字を変換する関数を使って、答えを変換しましょう。`main.cpp`を開き、`utility.h`をインクルードしてください。
+
+```diff
+ #include "exam_english.h"
+ #include "exam_science.h"
+ #include "exam_geography.h"
+ #include "exam_politics.h"
++#include "utility.h"
+ #include <iostream>
+ #include <string>
+ #include <vector>
+```
+
+そして、答えを入力するプログラムの下に、答えをSJISからASCIIに変換するプログラムを追加してください。
 
 ```diff
    for (const auto& e : questions) {
@@ -456,8 +469,9 @@
      string answer;
      cin >> answer;
 +
++    // 入力された答えをSJISからASCIIに変換する
 +    const string ascii = ConvertSjisNumberToAscii(answer);
-+    // 変換が成功した場合は文字列を置き換える
++    // 変換が成功した場合はASCII文字列に置き換える
 +    if ( ! ascii.empty()) {
 +      answer = ascii;
 +    }
