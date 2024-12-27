@@ -278,6 +278,7 @@ questions.push_back({ text, answer });
 +    } else if (e.b.empty()) {
 +      // 答えがひとつだけの場合
        cout << "間違い！ 正解は" << e.a << "\n";
+-    }
 +    } else {
 +      // 答えが複数ある場合、いずれかと一致すれば正解とする
 +      bool isMatch = false;
@@ -298,7 +299,7 @@ questions.push_back({ text, answer });
 +        }
 +        cout << ")\n";
 +      }
-     }
++    } // if answer == e.a
    } // for questions
  }
 ```
