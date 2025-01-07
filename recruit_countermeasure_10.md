@@ -221,7 +221,7 @@
 +        s.append(question.text, from, end - from); // 空欄の手前までの範囲をコピー
 +
 +        if (k != index) {
-+          s += question.answers[k]; // 選ばれなかった空欄の場合は答えをコピー
++          s += question.answers[k][0]; // 選ばれなかった空欄の場合は最初の答えをコピー
 +        } else {
 +          s.append("[ ? ]"); // 選ばれた空欄の場合は「表示用の空欄文字列」をコピー
 +        }
@@ -229,7 +229,7 @@
 +      }
 +      s.append(question.text, from); // 問題文の末尾部分をコピー
 +
-+      questions.push_back({ s, question.answers[index] });
++      questions.push_back({ s, question.answers[index][0] });
      } // for j < quizCount
    } // for i < genreCount
 ```
