@@ -359,7 +359,7 @@
 +    { "国語", CreateJapaneseExam },
 +    { "英語", CreateEnglishExam },
 +    { "物理", CreatePhysicsExam },
-+    { "地理", CreateGeographyExam },
++    { "地理", CreatePrefecturesExam },
 +    { "政治", CreatePoliticsExam },
 +    { "経済", CreateEconomicsExam },
 +  };
@@ -415,7 +415,7 @@ C/C++言語では「関数のアドレス(メモリ上の位置)」を扱う機�
 -  } else if (subject == 4) {
 -    questions = CreatePhysicsExam();
 -  } else if (subject == 5) {
--    questions = CreateGeographyExam();
+-    questions = CreatePrefecturesExam();
 -  } else if (subject == 6) {
 -    questions = CreatePoliticsExam();
 -  } else if (subject == 7) {
@@ -470,8 +470,8 @@ C/C++言語では「関数のアドレス(メモリ上の位置)」を扱う機�
 +  } else if (subject == 0) {
 +    // 総合テスト
 +    questions.clear();
-+    for (const auto& e : subjectData) {
-+      QuestionList tmp = e.create();
++    for (int i = 0; i < size(subjectData); i++) {
++      QuestionList tmp = subjectData[i].create();
 +      questions.insert(questions.end(), tmp.begin(), tmp.end());
 +    }
    }
