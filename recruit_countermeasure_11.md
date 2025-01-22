@@ -761,6 +761,7 @@ C/C++言語では「関数のアドレス(メモリ上の位置)」を扱う機�
 +          ofs << correctCounts[0] << '/' << questions.size();
 +        }
 +      }
++      ofs << '\n';
 +      cout << "成績を" << filename << "に出力しました\n";
 +    } else if (subject == 0) {
 +      // 総合テストの場合、すべての教科の成績を出力する
@@ -768,6 +769,7 @@ C/C++言語では「関数のアドレス(メモリ上の位置)」を扱う機�
 +      for (int i = 0; i < size(subjectData); i++) {
 +        ofs << ',' << correctCounts[i] << '/' << questionCounts[i];
 +      }
++      ofs << '\n';
 +      cout << "成績を" << filename << "に出力しました\n";
 +    }
    } // if !ofs
