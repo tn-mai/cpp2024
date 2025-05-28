@@ -76,9 +76,9 @@ $$ 球の体積 = \frac{4}{3}πR^3 $$
 それでは、三角形の面積の問題を追加しましょう。よく出るパターンは「面積と底辺から高さを求める」ものです。複雑な式の問題を作成するプログラムの下に、三角形の面積の問題を作成するプログラムを追加してください。
 
 ```diff
-   int w = uniform_int_distribution<>(1, 20)(rand);
    questions[2].q =
-     to_string(x) + "-(" + to_string(y * w) + "+" + to_string(z * w) + ")÷" + to_string(w);
+     to_string(x) + "-(" + to_string(y * w) + "+" + to_string(z * w) + ")÷" +
+     to_string(w);
    questions[2].a = x - (y + z);
 +
 +  // 三角形の面積
