@@ -290,7 +290,7 @@
 +        s.append(question.text, from, end - from); // 空欄の手前までの範囲をコピー
 +
 +        if (k != index) {
-+          s += question.answers[k]; // 選ばれなかった空欄の場合は答えをコピー
++          s.append(question.answers[k]); // 選ばれなかった空欄の場合は答えをコピー
 +        }
 +        from = end + 2; // コピー元の位置を更新
 +      }
