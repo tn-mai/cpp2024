@@ -325,7 +325,7 @@
    if (subject == 1) {
      questions = CreateMathematicsExam();
    } else if (subject == 2) {
-+    questions = CreateMathematicsExam();
++    questions = CreateJapaneseExam();
    } else if (subject == 3) {
      questions = CreateEnglishWordExam();
      QuestionList phraseExam = CreateEnglishPhraseExam();
