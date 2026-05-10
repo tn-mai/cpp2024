@@ -8,11 +8,16 @@
 
 図形の面積や体積を求める問題は、公式を利用することで作成できます(R=円の半径)。
 
-$$ 四角形の面積 = 縦×横 $$
-
-$$ 三角形の面積 = \frac{底辺×高さ}{2} $$
-
-$$ 直方体の体積 = 縦×横×高さ $$
+&emsp;
+$
+\begin{aligned}
+四角形の面積 &= 縦×横 \cr
+\cr
+三角形の面積 &= \frac{底辺×高さ}{2} \cr
+\cr
+直方体の体積 &= 縦×横×高さ
+\end{aligned}
+$
 
 <p align="center">
 <img src="images/lp02/formula_rectangle.png" width="22%" />
@@ -20,9 +25,14 @@ $$ 直方体の体積 = 縦×横×高さ $$
 <img src="images/lp02/formula_box.png" width="28%" />
 </p>
 
-$$ 円周の長さ = 2πR $$
-
-$$ 円の面積 = πR^2 $$
+&emsp;
+$
+\begin{aligned}
+円周の長さ &= 2πR \cr
+\cr
+円の面積 &= πR^2
+\end{aligned}
+$
 
 <p align="center">
 <img src="images/lp02/formula_circle_0.png" width="20%" />
@@ -31,18 +41,28 @@ $$ 円の面積 = πR^2 $$
 
 <div style="page-break-after: always"></div>
 
-$$ 円柱の表面積 = (底面積×2)+(円周の長さ×高さ) $$
-
-$$ 円錐の体積 = \frac{底面積×高さ}{3} $$
+&emsp;
+$
+\begin{aligned}
+円柱の表面積 &= (底面積×2)+(円周の長さ×高さ) \cr
+\cr
+円錐の体積 &= \frac{底面積×高さ}{3}
+\end{aligned}
+$
 
 <p align="center">
 <img src="images/lp02/formula_cylinder.png" width="19%" />
 <img src="images/lp02/formula_cone.png" width="22%" />
 </p>
 
-$$ 球の表面積 = 4πR^2 $$
-
-$$ 球の体積 = \frac{4}{3}πR^3 $$
+&emsp;
+$
+\begin{aligned}
+球の表面積 &= 4πR^2 \cr
+\cr
+球の体積 &= \frac{4}{3}πR^3
+\end{aligned}
+$
 
 <p align="center">
 <img src="images/lp02/formula_sphere.png" width="20%" />
@@ -50,8 +70,8 @@ $$ 球の体積 = \frac{4}{3}πR^3 $$
 
 これらのうち、就職試験でよく出題されるのは「三角形の面積」「円柱の表面積」「円錐の体積」あたりです。
 
-その前に、問題を簡単に増やせるように、配列を`vector`クラスで置き換えておきます。Visual Studioで`recruit_quiz`プロジェクトを開いてください。<br>
-そして、`main.cpp`に`vector`ヘッダをインクルードしてください。
+その前に、問題を簡単に増やせるように、配列を`vector`クラスで置き換えておきます。Visual Studioで
+`recruit_quiz`プロジェクトを開き、`main.cpp`に`vector`ヘッダをインクルードしてください。
 
 ```diff
  #include <iostream>
@@ -107,9 +127,15 @@ $$ 球の体積 = \frac{4}{3}πR^3 $$
 
 現在、三角形の面積の問題の文末は、
 
->cmの三角形の高さを求めよ。の答えは？
+>？cmの三角形の高さを求めよ。の答えは？
 
-のように表示されます。なんだか「の答えは？」の部分が邪魔ですね。無くしてしまったほうがよさそうです。問題文を表示するプログラムを次のように変更してください。
+のように表示されます。
+
+最後の「の答えは？」の部分が不自然ですね。無くしてしまったほうが自然そうです。
+
+<div style="page-break-after: always"></div>
+
+問題文を表示するプログラムを次のように変更してください。
 
 ```diff
    cout << "[リクルート試験対策クイズ]\n";
@@ -150,7 +176,7 @@ $$ 球の体積 = \frac{4}{3}πR^3 $$
    questions[2].a = x - (y + z);
 ```
 
-プログラムが書けたらビルドして実行してください。問題文の末尾が日本語として自然な表現になっていれば成功です。
+プログラムが書けたらビルドして実行してください。問題文の末尾が、より自然な表現になっていれば成功です。
 
 <pre class="tnmai_assignment">
 <strong>【課題02】</strong>
