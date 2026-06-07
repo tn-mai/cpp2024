@@ -310,7 +310,8 @@
 
 就職試験では、英語の「熟語」や「基本的な構文」もよく出題されます。これらの「定型文」は英語の長い歴史をへて現在の意味になっています。そのため、個々の単語だけを知っていても、文章としては理解できません。
 
-そこで、これらの「定型文」を出題する関数を作成し、学習に使えるようにします。「定型文」は`phrase`(フレーズ)というので、関数名は`CreateEnglishPhraseExam`(クリエイト・イングリッシュ・フレーズ・エグザム)とします。
+そこで、これらの「定型文」を出題する関数を作成し、学習に使えるようにします。<br>
+「定型文」は`phrase`(フレーズ)というので、関数名は`CreateEnglishPhraseExam`(クリエイト・イングリッシュ・フレーズ・エグザム)とします。
 
 `exam_english.h`を開き、次の関数宣言を追加してください。
 
@@ -382,23 +383,29 @@
 `blankOptions`(ブランク・オプションズ)でしょう。<br>
 前提として、問題文は、 **例文の単語のひとつを空欄で置き換える** 、という形式になる予定です。
 
-&emsp;**定型文の単語を空欄に置き換えた例**<br>
+&emsp;**定型文 too A to B の例文の単語を空欄に置き換えた例**<br>
 &emsp;&emsp;`The tea was [ ? ] hot to drink.`<br>
 &emsp;&emsp;`The tea was too hot [ ? ] drink.`
 
 このとき、空欄の置き換え対象になるのは、定型文と関係のある単語だけです。<br>
 それ以外の単語を置き換えても試験にならないからです。<br>
-`blankCount`と`blankOptions`は「定型文と関係のある単語」を識別するためのデータになります。
+変数`blankCount`と`blankOptions`は「定型文と関係のある単語」を識別するためのデータです。
 
 まず`blankCount`ですが、これは **空欄で置き換え可能な単語の数** をあらわします。<br>
-例えば、最初のデータの定型文は`too [A] to [B]`なので、`too`と`to`の2つが空欄になりえます。<br>
+例えば、最初のデータの定型文は、
+
+&emsp;`too [A] to [B]`
+
+です。文中で変化しない2つの単語`too`と`to`が空欄の候補になります。<br>
 そのため、`blankCount`の値は`2`になります。
 
-次に`blankOptions`ですが、これは **例文の中にある、置き換え可能な単語の位置** をあらわします。<br>
-例えば、定型文`too [A] to [B]`の例文は`The tea was too hot to drink.`です。<br>
-最初の単語を0番目とすると、3番目の`too`と5番目の`to`が定型文に対応し、置き換え可能です。
+次に`blankOptions`ですが、これは **例文の中にある、空欄で置き換え可能な単語の位置** をあらわします。<br>
+例えば、定型文`too [A] to [B]`の例文は、
 
-そのため、`blankOption`配列の値は`3`と`5`の2つになります。
+&emsp;`The tea was too hot to drink.`
+
+です。最初の単語を0番目とすると、3番目の`too`と5番目の`to`が定型文に対応し、置き換え可能です。<br>
+そのため、`blankOptions`配列の値は`3`と`5`の2つになります。
 
 次に、このデータから問題を作成します。問題のパターンには以下の3つが考えられます。
 
@@ -580,10 +587,10 @@
 <pre class="tnmai_assignment">
 <strong>【課題06】</strong>
 定型文の<code>data</code>配列に以下の問題を追加しなさい。
-空欄の位置は、定型文と例文を比較しながら設定すること。
+空欄の個数と位置は、定型文と例文を比較しながら設定すること。
 <table>
 <tr><th>定型文</th><th>意味</th><th>例文</th><th>日本語訳</th>
-<tr><td>be going to [A]</td><td>[A]するつもりだ</td><td>I am going to visit Osaka.</td><td>大阪に行くつもりだ。</td></tr>
+<tr><td>be going to [A]</td><td>[A]するつもりだ</td><td>I am going to build a house.</td><td>家を建てるつもりだ。</td></tr>
 <tr><td>turn to [A] for [B]</td><td>[A]に[B]を求める</td><td>She turn to the friends for help.</td><td>彼女は友達に助けを求めた。</td></tr>
 <tr><td>it is not until [A] that [B]</td><td>[A]して初めて[B]する</td><td>It was not until dawn that the trouble solved.</td><td>夜明けまで問題は解決しなかった。</td></tr>
 <tr><td>[A] as well as [B]</td><td>[B]だけでなく[A]も</td><td>He can speak French as well as English.</td><td>彼は英語だけでなくフランス語も話せる。</td></tr>
