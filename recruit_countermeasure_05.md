@@ -245,15 +245,15 @@
 +      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +      // ランダムな位置を正しい番号で上書き
-+      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      const int correctNo = uniform_int_distribution<>(1, 3)(rd);
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
 +      string s = "「" + string(data[correctIndex].word) +
 +        "」の意味として正しい番号を選べ\n";
-+      s += std::string("  1:") + data[answers[0]].meaning + "\n";
-+      s += std::string("  2:") + data[answers[1]].meaning + "\n";
-+      s += std::string("  3:") + data[answers[2]].meaning;
++      s += string("  1:") + data[answers[0]].meaning + "\n";
++      s += string("  2:") + data[answers[1]].meaning + "\n";
++      s += string("  3:") + data[answers[2]].meaning;
 +
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
@@ -367,7 +367,7 @@
 +      "I'm looking forward to seening you", "あなたに会うのを楽しみにしています。",
 +      3, { 1, 2, 3 }},
 +    { "according to [A]", "[A]によると",
-+      "Acoording to the weather forcast, today is rain.", "天気予報によると、今日は雨だ。",
++      "Acoording to the weather forecast, today is rain.", "天気予報によると、今日は雨だ。",
 +      2, { 0, 1 }},
 +    { "as soon as [A]", "[A]するとすぐに",
 +      "As soon as I arrive, I will call you.", "到着したらすぐに電話します。",
@@ -509,15 +509,15 @@
 +      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +      // ランダムな位置を正しい番号で上書き
-+      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      const int correctNo = uniform_int_distribution<>(1, 3)(rd);
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
 +      string s = "「" + string(data[correctIndex].phrase) +
 +        "」の意味として正しい番号を選べ\n";
-+      s += std::string("  1:") + data[answers[0]].meaning + "\n";
-+      s += std::string("  2:") + data[answers[1]].meaning + "\n";
-+      s += std::string("  3:") + data[answers[2]].meaning;
++      s += string("  1:") + data[answers[0]].meaning + "\n";
++      s += string("  2:") + data[answers[1]].meaning + "\n";
++      s += string("  3:") + data[answers[2]].meaning;
 +
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
@@ -544,14 +544,14 @@
 +      vector<int> answers = CreateWrongIndices(size(data), correctIndex);
 +
 +      // ランダムな位置を正しい番号で上書き
-+      const int correctNo = std::uniform_int_distribution<>(1, 3)(rd);
++      const int correctNo = uniform_int_distribution<>(1, 3)(rd);
 +      answers[correctNo - 1] = correctIndex;
 +
 +      // 問題文を作成
 +      string s = "「" + string(data[correctIndex].meaning) + "」に対応する定型文を選べ\n";
-+      s += std::string("  1:") + data[answers[0]].phrase + "\n";
-+      s += std::string("  2:") + data[answers[1]].phrase + "\n";
-+      s += std::string("  3:") + data[answers[2]].phrase;
++      s += string("  1:") + data[answers[0]].phrase + "\n";
++      s += string("  2:") + data[answers[1]].phrase + "\n";
++      s += string("  3:") + data[answers[2]].phrase;
 +
 +      questions.push_back({ s, to_string(correctNo) });
 +    }
