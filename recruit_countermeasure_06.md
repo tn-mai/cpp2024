@@ -215,8 +215,8 @@ $$
 +  { // 等加速度直線運動
 +    // 公式: v = v0 + at を使って解く問題
 +    int v0 = uniform_int_distribution<>(1, 10)(rd); // 初速
-+    int a = uniform_int_distribution<>(1, 5)(rd);  // 加速度
-+    int t = uniform_int_distribution<>(1, 20)(rd); // 移動時間
++    int a = uniform_int_distribution<>(1, 5)(rd);   // 加速度
++    int t = uniform_int_distribution<>(1, 20)(rd);  // 移動時間
 +    questions.push_back({
 +      "秒速" + to_string(v0) + "mで移動していた車が、進行方向に大きさ" + to_string(a) +
 +      "m/sで等加速度直線運動をはじめた。\n" + to_string(t) + "秒後の速度をm/s単位で求めよ。",
@@ -236,7 +236,7 @@ $$
        to_string(v0 + a * t) });
 +
 +    // 公式: x = v0t + 1/2*at^2 を使って解く問題
-+    v0 = uniform_int_distribution<>(5, 20)(rd);    // 初速
++    v0 = uniform_int_distribution<>(5, 20)(rd);   // 初速
 +    a = uniform_int_distribution<>(1, 5)(rd) * 2; // 加速度
 +    t = uniform_int_distribution<>(1, 10)(rd);    // 移動時間
 +    questions.push_back({
@@ -263,7 +263,7 @@ $$
 +
 +    // 公式: v^2 - v0^2 = 2ax を使って解く問題
 +    a = -uniform_int_distribution<>(1, 5)(rd) * 2; // 加速度
-+    t = uniform_int_distribution<>(1, 10)(rd);    // 移動時間
++    t = uniform_int_distribution<>(1, 10)(rd);     // 移動時間
 +    v0 = -a * t; // 初速
 +    questions.push_back({
 +      "秒速" + to_string(v0) + "mで移動していた車がブレーキをかけたところ、" +
@@ -294,6 +294,8 @@ $$ a = \frac{v^2 - v_0^2}{2x} $$
 <strong>【課題03】</strong>
 <code>exam_science.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
+
+<div style="page-break-after: always"></div>
 
 ### 1.4 重力加速度
 
@@ -336,6 +338,8 @@ $$ a = \frac{v^2 - v_0^2}{2x} $$
 また、このプログラムでは、答えの小数点以下第1位までをプログラムで文字列化しています。
 `to_string`関数では小数点以下の桁数を制御できないからです。
 
+<div style="page-break-after: always"></div>
+
 重力加速度の問題をもう一つ追加しましょう。ひとつめの重力加速度の問題を作成するプログラムの下に、次のプログラムを追加してください。
 
 ```diff
@@ -346,7 +350,7 @@ $$ a = \frac{v^2 - v_0^2}{2x} $$
        answer });
 +
 +    int v0 = uniform_int_distribution<>(1, 10)(rd); // 初速
-+    t = uniform_int_distribution<>(1, 10)(rd);  // 移動時間
++    t = uniform_int_distribution<>(1, 10)(rd); // 移動時間
 +    int v = v0 * 10 - 98 * t; // 速度
 +    answer.clear();
 +    if (v < 0) {
