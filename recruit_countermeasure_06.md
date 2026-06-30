@@ -218,8 +218,8 @@ $$
 +    int a = uniform_int_distribution<>(1, 5)(rd);   // 加速度
 +    int t = uniform_int_distribution<>(1, 20)(rd);  // 移動時間
 +    questions.push_back({
-+      "秒速" + to_string(v0) + "mで移動していた車が、進行方向に大きさ" + to_string(a) +
-+      "m/sで等加速度直線運動をはじめた。\n" + to_string(t) + "秒後の速度をm/s単位で求めよ。",
++      "秒速" + to_string(v0) + "mで移動していた車が、進行方向に加速度" + to_string(a) +
++      "m/s^2で等加速度直線運動をはじめた。\n" + to_string(t) + "秒後の速度をm/s単位で求めよ。",
 +      to_string(v0 + a * t) });
 +  } // 等加速度直線運動
 
@@ -240,8 +240,8 @@ $$
 +    a = uniform_int_distribution<>(1, 5)(rd) * 2; // 加速度
 +    t = uniform_int_distribution<>(1, 10)(rd);    // 移動時間
 +    questions.push_back({
-+      "秒速" + to_string(v0) + "mで移動していた車が、進行方向に大きさ" + to_string(a) +
-+      "m/sで等加速度直線運動をはじめた。\n加速を始めてから" + to_string(t) +
++      "秒速" + to_string(v0) + "mで移動していた車が、進行方向に加速度" + to_string(a) +
++      "m/s^2で等加速度直線運動をはじめた。\n加速を始めてから" + to_string(t) +
 +      "秒後までに移動した距離をm単位で求めよ。",
 +      to_string(v0 * t + a * t * t / 2) });
    } // 等加速度直線運動
