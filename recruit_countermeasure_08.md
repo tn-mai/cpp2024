@@ -93,6 +93,11 @@ Webブラウザで以下のURLを開き、`japanese_prefectures.txt`というフ
 +}
 ```
 
+<pre class="tnmai_assignment">
+<strong>【課題01】</strong>
+<code>utility.h</code>と<code>utility.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
+</pre>
+
 ### 1.2 地理の問題を作成する(その１)
 
 それでは、地理のプログラム用のファイルを追加しましょう。<br>
@@ -331,7 +336,7 @@ Webブラウザで以下のURLを開き、`japanese_prefectures.txt`というフ
 プログラムが書けたらビルドして実行してください。教科選択で`5`の「地理」を選び、「特徴から都道府県を答える問題」が出題されたら成功です。
 
 <pre class="tnmai_assignment">
-<strong>【課題01】</strong>
+<strong>【課題02】</strong>
 <code>main.cpp</code>, <code>exam_geography.h</code>, <code>exam_geography.cpp</code>, <code>recruit_quiz.vcproj</code>,
 <code>recruit_quiz.vcproj.filters</code>, <code>japanese_prefectures.txt</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
@@ -395,7 +400,7 @@ Webブラウザで以下のURLを開き、`japanese_prefectures.txt`というフ
 教科選択で「地理」を選んだとき、「都道府県をあらわす特徴を答える問題」が出題されたら成功です。
 
 <pre class="tnmai_assignment">
-<strong>【課題02】</strong>
+<strong>【課題03】</strong>
 <code>exam_geography.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
@@ -464,7 +469,7 @@ Webブラウザで以下のURLを開き、`japanese_prefectures.txt`というフ
 教科選択で「地理」を選んだとき、「都道府県から県庁所在地を答える問題」が出題されたら成功です。
 
 <pre class="tnmai_assignment">
-<strong>【課題03】</strong>
+<strong>【課題04】</strong>
 <code>exam_geography.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
@@ -487,11 +492,11 @@ Webブラウザで以下のURLを開き、`japanese_prefectures.txt`というフ
 教科選択で「地理」を選ぶことを数回繰り返して、出題される問題の種類がランダムになっていたら成功です。
 
 <pre class="tnmai_assignment">
-<strong>【課題04】</strong>
+<strong>【課題05】</strong>
 <code>exam_geography.cpp</code>を「ステージ」し、適切なメッセージを書いて「コミット」しなさい。
 </pre>
 
 <pre class="tnmai_assignment">
-<strong>【課題05】</strong>
+<strong>【課題06】</strong>
 <code>Git</code>メニューから「同期」を選択し、コミットをリモートリポジトリに反映しなさい。
 </pre>
